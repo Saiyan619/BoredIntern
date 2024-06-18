@@ -51,6 +51,10 @@ export const Context = ({ children }) => {
   // }
   // const randomUid = generateRandomUid()
 
+
+   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
+  const formattedTimestamp = new Date(currentTimestamp * 1000).toLocaleString();
+
   // function for getting and storing the dat of all users either employers or interns
   const allUsers = async (FirstName, LastName, email, itOrEm) => {
     try {
@@ -166,7 +170,7 @@ export const Context = ({ children }) => {
    
   }
   
-  const postJob = async (role, salary, typeOfWork, duration, description, company, location, datePosted, hireStopAt) => {
+  const postJob = async (role, salary, typeOfWork, duration, description, company, location, hireStopAt) => {
     // createdAt: formattedTimestamp,
     try {
       // const notify = () => toast("Job Posted 😁");
@@ -180,7 +184,10 @@ export const Context = ({ children }) => {
           description,
           // postedBy: userDetails?.UsernameInput,
           userId: User?.uid,
-          company
+          company,
+          location,
+          DatePosted: formattedTimestamp,
+          HireStopAt: hireStopAt || ''
         });
 
         console.log("posted");

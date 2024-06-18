@@ -8,7 +8,10 @@ const PostJobs = () => {
     const [salary, setSalary] = useState('');
     const [jobType, setjobType] = useState('')
     const [jobDuration, setjobDuration] = useState('')
-    const [jobDesc, setjobDesc] = useState('')
+  const [jobDesc, setjobDesc] = useState('')
+  const [company, setCompany] = useState('')
+  const [location, setLocation] = useState('')
+  const [hireTimeLimit, sethireTimeLimit] = useState('')
 
     function handleSalary(e) {
        setSalary(e.target.value)
@@ -18,13 +21,18 @@ const PostJobs = () => {
        setjobDuration(e.target.value)
     }function handleJobDesc(e) {
        setjobDesc(e.target.value)
+    }function handleCompany(e) {
+       setCompany(e.target.value)
+    }function handleLocation(e) {
+       setLocation(e.target.value)
+    }function handleHireLimit(e) {
+       sethireTimeLimit(e.target.value)
     }
 
     const { User, postJob } = UserContext();
-
     const jobPost = async () => {
         try {
-            await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc)  
+            await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, hireTimeLimit)  
         } catch (error) {
             
         }
@@ -91,6 +99,9 @@ const PostJobs = () => {
             <input onChange={handleSalary}  type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
             <input onChange={handleJobtype} type="text" placeholder="type of work" className="input input-bordered w-full max-w-xs" />
             <input onChange={handleJobDur} type="text" placeholder="duration" className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleCompany} type="text" placeholder="company" className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleHireLimit} type="text" placeholder="deadline" className="input input-bordered w-full max-w-xs" />
            
           <label className="form-control">
   <div className="label">
