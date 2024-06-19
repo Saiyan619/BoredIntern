@@ -17,9 +17,10 @@ const ProfilePage = () => {
   return (
     <div>
       <Navigation />
-    <div className='p-4'> 
-      <div className='flex justify-around'>
-      <div className='flex flex-col border rounded lg:w-3/5  bg-blue-100 p-4'>
+  
+      <div className='p-4'> 
+      <div className='flex justify-around flex-wrap'>
+      <div className='flex flex-col border rounded w-full lg:w-3/5  bg-blue-100 p-4'>
         <div className="avatar">
   <div className="w-24 rounded-full">
     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
@@ -62,7 +63,7 @@ const ProfilePage = () => {
         </div>
       </div>
 
-      <div className=' bg-blue-100 p-4'>
+      <div className=' bg-blue-100 p-4 w-full lg:w-1/4 mt-4 rounded'>
         <div>
           <span className='font-bold text-lg'>Language</span>
           <p>English</p>

@@ -2,46 +2,49 @@ import React from 'react'
 
 const Card = () => {
   return (
-      <div>
-          <div className='flex justify-between flex-col lg:flex-row lg:flex-wrap'>
-          <div className="stats bg-blue-100 ">
-  
-  <div className="stat lg:w-96">
-    <div className="stat-title">Build your profile</div>
-    <div className="stat-value text-sm font-thin">Give Employers more information about you</div>
-    <div className="stat-actions">
-      <button className="btn btn-sm btn-success">Complete profile</button>
+    <div>
+
+      <div className='flex justify-center md:justify-evenly flex-wrap items-center'>
+       <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
+           
+        <div className="card-body">
+              <div className='flex justify-between flex-wrap'>
+    <h2 className="card-title text-lg">Build your profile</h2>
+ </div>
+        <p className='text-sm'>Give Employers more information about you</p>
+    <div className="card-actions justify-end">
+    <button className="btn btn-sm btn-success">Complete profile</button>
     </div>
   </div>
-
-  
-          </div>
-
-          <div className="stats bg-blue-100 ">
-  
-  <div className="stat lg:w-96">
-    <div className="stat-title">Find your next internship</div>
-    <div className="stat-value text-sm font-thin">Explore exclusive Internships</div>
-    <div className="stat-actions">
-      <button className="btn btn-sm btn-success">Discover jobs</button>
+      </div>
+      
+      <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
+           
+        <div className="card-body">
+              <div className='flex justify-between flex-wrap'>
+    <h2 className="card-title text-lg">Find your next internship</h2>
+ </div>
+        <p className='text-sm'>Explore exclusive Internships</p>
+    <div className="card-actions justify-end">
+    <button className="btn btn-sm btn-success">Discover jobs</button>
     </div>
   </div>
-
-  
-          </div>
-
-          <div className="stats bg-blue-100 ">
-  
-  <div className="stat lg:w-96">
-    <div className="stat-title">Send invoice and proposals</div>
-    <div className="stat-value text-sm font-thin">Manage your workflow commission-free</div>
-    <div className="stat-actions">
-      <button className="btn btn-sm btn-success">Send Ideas</button>
+      </div>
+      
+      <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
+           
+        <div className="card-body">
+              <div className='flex justify-between flex-wrap'>
+    <h2 className="card-title text-lg">Send invoice and proposals</h2>
+ </div>
+        <p className='text-sm'>Manage your workflow commission-free</p>
+    <div className="card-actions justify-end">
+    <button className="btn btn-sm btn-success">Send Ideas</button>
     </div>
   </div>
-
-  </div>
-</div>
+        </div>
+        
+        </div>
     </div>
   )
 }
