@@ -18,10 +18,8 @@ const Internships = () => {
       {allJobs?.map((item) => {
         return <div>
           <div className="card w-96 bg-base-100 shadow-xl mt-5">
-  {/* <figure><img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure> */}
   <div className="card-body">
     <h2 className="card-title">
-                {/* {item?.role.map((item, index) = () => {<Link to={`${item.index}`}>{item}</Link>})} */}
                 {item?.role.map((item, key) => {
                   return <p>{item}</p>
                 })}
