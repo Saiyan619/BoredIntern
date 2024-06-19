@@ -184,6 +184,7 @@ export const Context = ({ children }) => {
           description,
           // postedBy: userDetails?.UsernameInput,
           userId: User?.uid,
+          // jobId:formattedTimestamp,
           company,
           location,
           DatePosted: formattedTimestamp,
