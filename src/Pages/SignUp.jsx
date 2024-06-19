@@ -67,12 +67,13 @@ const SignUp = () => {
       
       <div className='p-4'>
         <span className='text-2xl sm:text-4xl'>First, Enter your work Email</span>
-        <div>
-          <div>
+       
+          <div>  
+            <div>     
           <label className="form-control w-full max-w-xs">
   <div className="label">
     <span className="label-text">Email</span>
-                </div>
+  </div>
         
   <input onChange={handleEmail} type="text" placeholder="abc123@gmail.com" className="input input-bordered w-full max-w-xs" />
   <div className="label">

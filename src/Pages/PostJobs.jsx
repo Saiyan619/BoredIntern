@@ -66,10 +66,11 @@ const PostJobs = () => {
       console.log(selectedSkills)
   return (
       <div>
-          <Navigation />
-             <div className="max-w-md mx-auto p-8">
+      <Navigation />
+      <div className='p-5'>
+      <div className=" flex items-left flex-col">
       <label className="block text-lg font-medium text-gray-700 mb-4">
-        Select your skills (up to 3)
+        Select your role (only one)
         </label>
         <span>{selectedSkills.map((items) => {
           return <p>{items}</p>
@@ -92,28 +93,65 @@ const PostJobs = () => {
         ))}
       </div>
       {warning && (
-        <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
+        <p className="text-red-500 mt-2">You can only select a skill.</p>
       )}
           </div>
 
-            <input onChange={handleSalary}  type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
-            <input onChange={handleJobtype} type="text" placeholder="type of work" className="input input-bordered w-full max-w-xs" />
-            <input onChange={handleJobDur} type="text" placeholder="duration" className="input input-bordered w-full max-w-xs" />
-            <input onChange={handleCompany} type="text" placeholder="company" className="input input-bordered w-full max-w-xs" />
+        <div className='mt-5'>
+        <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>
+          
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>   <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>   <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>   <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>   <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Salary</span>
+                </div>
+            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+          </label>
+          
+            <input onChange={handleJobtype} type="text" placeholder="type of work e.g remote,hybrid e.tc..." className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleJobDur} type="text" placeholder="duration e.g fulltime..." className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleCompany} type="text" placeholder="company or self-hiring" className="input input-bordered w-full max-w-xs" />
             <input onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
             <input onChange={handleHireLimit} type="text" placeholder="deadline" className="input input-bordered w-full max-w-xs" />
-           
+
+        </div>
+        
           <label className="form-control">
   <div className="label">
     <span className="label-text">Your description</span>
-    <span className="label-text-alt">Alt label</span>
+    {/* <span className="label-text-alt">Alt label</span> */}
   </div>
-  <textarea onChange={handleJobDesc} className="textarea textarea-bordered h-24" placeholder="desc"></textarea>
+  <textarea onChange={handleJobDesc} className="textarea textarea-bordered h-24" placeholder="Write job description here..."></textarea>
           </label>
           
           <button onClick={jobPost} className="btn w-full rounded-full mt-5">Next</button>
 
-    </div>
+      </div>
+      </div>
   )
 }
 
