@@ -100,43 +100,46 @@ const PostJobs = () => {
         <div className='mt-5'>
         <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Salary</span>
+    <span className="label-text">Salary($)</span>
                 </div>
             <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
           </label>
           
           <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Salary</span>
+    <span className="label-text">Job type</span>
                 </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
-          </label>   <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Salary</span>
-                </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
-          </label>   <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Salary</span>
-                </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
-          </label>   <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Salary</span>
-                </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
-          </label>   <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Salary</span>
-                </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleJobtype} type="text" placeholder="type of work e.g remote,hybrid e.tc..." className="input input-bordered w-full max-w-xs" />
           </label>
           
-            <input onChange={handleJobtype} type="text" placeholder="type of work e.g remote,hybrid e.tc..." className="input input-bordered w-full max-w-xs" />
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Duration</span>
+                </div>
             <input onChange={handleJobDur} type="text" placeholder="duration e.g fulltime..." className="input input-bordered w-full max-w-xs" />
+          </label>
+          
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Company</span>
+                </div>
             <input onChange={handleCompany} type="text" placeholder="company or self-hiring" className="input input-bordered w-full max-w-xs" />
-            <input onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
+          </label>
+          
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Location</span>
+                </div>
+            <input  onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
+          </label>
+          
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Deadline</span>
+                </div>
             <input onChange={handleHireLimit} type="text" placeholder="deadline" className="input input-bordered w-full max-w-xs" />
+          </label>
+          
 
         </div>
         
