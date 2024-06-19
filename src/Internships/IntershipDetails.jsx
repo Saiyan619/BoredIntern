@@ -15,10 +15,10 @@ const IntershipDetails = () => {
     return (
         <div>
             <Navigation />
-      <div className='p-6'>
+      <div className='p-4 sm:p-6'>
           <div className='flex flex-col'>
-              <div className='flex items-center gap-5'>
-                 <h1 className='text-4xl capitalize'>{jobDetails?.role.map((item) => item)}</h1> 
+              <div className='flex items-center gap-5 flex-wrap'>
+                 <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role.map((item) => item)}</h1> 
                   {jobDetails?.duration}
               </div>
 

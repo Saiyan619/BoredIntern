@@ -18,6 +18,7 @@ const Internships = () => {
       <div className='flex flex-wrap items-center justify-center gap-10 p-4'>
       {allJobs?.map((item) => {
         return <div>
+           <Link to={`/Internships/InternshipDetails/${item.id}`}>
           <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
             <div className="card-body">
               <div className='flex justify-between flex-wrap'>
@@ -26,7 +27,7 @@ const Internships = () => {
                   return <p>{item}</p>
                 })}
                 </h2>
- <Link to={`/Internships/InternshipDetails/${item.id}`}> <div className="badge badge-secondary">{item.typeOfWork}</div></Link>    
+ <div className="badge badge-secondary">{item.typeOfWork}</div> 
  </div>
               <p>${item.salary}</p>
               <p>{item.duration}</p>
@@ -36,7 +37,9 @@ const Internships = () => {
       <div className="badge badge-outline">fullstack</div>
     </div>
   </div>
-</div>
+  
+          </div>
+          </Link>
         </div>
       })}
       </div>
