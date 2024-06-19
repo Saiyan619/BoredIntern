@@ -25,7 +25,7 @@ const Internships = () => {
                 {item?.role.map((item, key) => {
                   return <p>{item}</p>
                 })}
- <Link to={`/Internships/InternshipDetails/${item.userId}`}> <div className="badge badge-secondary">{item.typeOfWork}</div></Link>    
+ <Link to={`/Internships/InternshipDetails/${item.id}`}> <div className="badge badge-secondary">{item.typeOfWork}</div></Link>    
               </h2>
               <p>${item.salary}</p>
               <p>{item.duration}</p>

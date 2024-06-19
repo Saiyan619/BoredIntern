@@ -12,6 +12,7 @@ export const Context = ({ children }) => {
   const [userDetailsIntern, setuserDetailsIntern] = useState()
   const [userDetailsEmployer, setuserDetailsEmployer] = useState();
   const [allJobs, setAllJobs] = useState()
+  const [jobDetails, setJobDetails] = useState()
 
   const navigate = useNavigate();
 
@@ -208,18 +209,34 @@ export const Context = ({ children }) => {
       querySnapshot.forEach((doc) => {
         jobs.push({ ...doc.data(), id: doc.id });
         setAllJobs(jobs);
-        console.log(allJobs);
+        console.log(jobs);
       });
     });
 
     return () => unsub();
   };
     
+  const getJobDetails = async (id) => {
+    try {
+      const docRef = doc(db, 'jobs', id)
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const jobDets = docSnap.data();
+      setJobDetails(jobDets);
+      console.log('details shown')
+    } else {
+      console.log('file not file somethins wrong')
+    }
+    } catch (error) {
+      console.log(error)
+    }
+    
+}
     
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails}}>
     {children}
 </globalContext.Provider>
   )
