@@ -111,7 +111,6 @@ const [selectedSkills, setSelectedSkills] = useState([]);
 
             </label>
 
-          {/* ////////////////////////////////// */}
           <label className="form-control">
   <div className="label">
     <span className="label-text">Your bio</span>
@@ -128,7 +127,6 @@ const [selectedSkills, setSelectedSkills] = useState([]);
             </label>
           
           
-          {/* ////////////////////////////////////// */}
 
           <div className="max-w-md mx-auto p-8">
       <label className="block text-lg font-medium text-gray-700 mb-4">
