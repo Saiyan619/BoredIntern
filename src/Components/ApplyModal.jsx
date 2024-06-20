@@ -4,7 +4,7 @@ const ApplyModal = () => {
   return (
       <div>
           {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn" onClick={()=>document.getElementById('my_modal_5').showModal()}>open modal</button>
+<button className="mt-4 btn btn-primary" onClick={()=>document.getElementById('my_modal_5').showModal()}>Fill out Job</button>
 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
   <div className="modal-box">
  

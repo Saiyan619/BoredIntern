@@ -29,7 +29,7 @@ const IntershipDetails = () => {
               </div>
               
               <div className='flex items-center gap-10 mt-3'>
-               <span>{jobDetails?.salary}</span>
+               <span>${jobDetails?.salary}</span>
               <div className="badge badge-primary">{jobDetails?.typeOfWork}</div>
               </div>
 
@@ -45,7 +45,6 @@ const IntershipDetails = () => {
                   </div>
                     </div>
                     
-                    <button className="btn btn-sm btn-success">Fill out application</button>
                     <ApplyModal />
 
               
