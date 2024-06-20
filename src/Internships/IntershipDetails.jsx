@@ -45,6 +45,7 @@ const IntershipDetails = () => {
                   </div>
                     </div>
                     
+                    
                     <ApplyModal />
 
               

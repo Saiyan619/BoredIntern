@@ -1,7 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../Utilities/Context'
+import LogoutModal from '../Components/LogoutModal'
 
 const Navigation = () => {
+  const { logOut } = UserContext()
+  const navigate = useNavigate();
+
+  const logOutUser = async() => {
+    try {
+        await logOut()
+        navigate('/')
+        console.log('logged out')
+    } catch (error) {
+        console.log(error)
+    }
+}
 
   return (
       <div>
@@ -19,7 +34,7 @@ const Navigation = () => {
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">daisyUI</a>
+   <Link to={'/Home'}><a className="btn btn-ghost text-xl">BoredIntern</a></Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -48,7 +63,7 @@ const Navigation = () => {
            
         <li><a>Saved Jobs</a></li>
         <Link to={'/SettingsPage'}><li><a>Settings</a></li></Link>
-        <li><a>Logout</a></li>
+        <LogoutModal />
       </ul>
     </div>
 </div>

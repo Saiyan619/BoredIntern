@@ -7,20 +7,12 @@ import Card from '../Components/Card'
 
 
 const Home = () => {
-    const { User, logOut, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer } = UserContext()
+    const { User, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer } = UserContext()
   const navigate = useNavigate()
   
   console.log(User?.email);
 
-    const logOutUser = async() => {
-        try {
-            await logOut()
-            navigate('/')
-            console.log('logged out')
-        } catch (error) {
-            console.log(error)
-        }
-  }
+  
   // const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   // const formattedTimestamp = new Date(currentTimestamp * 1000).toLocaleString();
   useEffect(() => {
@@ -41,7 +33,6 @@ const Home = () => {
       <span className='font-semibold'>Home</span>
       <p className='text-2xl font-bold'> Welcome, {userDetailsIntern?.FirstName || userDetailsEmployer?.FirstName} 😁</p>
          
-      <button onClick={logOutUser} className='bg-black text-white'>log out</button>
       <Card />
       </div>
      
