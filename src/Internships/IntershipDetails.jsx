@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { UserContext } from '../Utilities/Context';
 import Navigation from '../Pages/Navigation';
+import ApplyModal from '../Components/ApplyModal';
 
 const IntershipDetails = () => {
     const {User, getJobDetails, jobDetails} = UserContext()
@@ -42,8 +43,11 @@ const IntershipDetails = () => {
               <div className='text-sm mt-2 '>
               {jobDetails?.description}
                   </div>
-                  </div>
-              
+                    </div>
+                    
+                    <button className="btn btn-sm btn-success">Fill out application</button>
+                    <ApplyModal />
+
               
                 </div>
                 </div>
