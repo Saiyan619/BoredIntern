@@ -94,27 +94,48 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       </label>
       
       <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Company or Self Hiring(If Self Hiring just type 'self hiring')</span>
+            <div className="label">
+            <span className="label-text">Company or Self Hiring(If Self Hiring just type 'self hiring')</span>
+
   </div>
   <input onChange={handleCompany} type="text" placeholder="Company or self hiring" className="input input-bordered w-full max-w-xs" />
-  <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
-  <input onChange={handleBio} type="text" placeholder="Bio" className="input input-bordered w-full max-w-xs" />
-  <input onChange={handleAbout} type="text" placeholder="about" className="input input-bordered w-full max-w-xs" />
-  <div className="label">
-  </div>
+       
           </label>
-          <button onClick={createEmployerProfile} className="btn w-full rounded-full">Next</button>
 
-        </div>
-      </div>
-      
-      <div className="max-w-md mx-auto p-8">
+          <label className="form-control w-full max-w-xs">
+
+          <div className="label">
+            <span className="label-text">Email</span>
+            </div>
+            <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
+
+            </label>
+
+          {/* ////////////////////////////////// */}
+          <label className="form-control">
+  <div className="label">
+    <span className="label-text">Your bio</span>
+  </div>
+  <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Write something catchy"></textarea>
+     </label>
+
+             <label className="form-control">
+  <div className="label">
+    <span className="label-text">About</span>
+  </div>
+  <textarea onChange={handleAbout} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+
+            </label>
+          
+          
+          {/* ////////////////////////////////////// */}
+
+          <div className="max-w-md mx-auto p-8">
       <label className="block text-lg font-medium text-gray-700 mb-4">
         Select your skills (up to 3)
         </label>
         <span>{selectedSkills.map((items) => {
-          return <p>{items}</p>
+          return <button className="btn no-animation">{items}</button>
         })}</span>
       <div className="space-y-2">
         {skillsList.map(skill => (
@@ -136,7 +157,14 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       {warning && (
         <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
       )}
-    </div>
+          </div>
+          
+          <button onClick={createEmployerProfile} className="btn w-full rounded-full">Next</button>
+
+        </div>
+      </div>
+      
+      
     </div>
   )
 }

@@ -113,31 +113,21 @@ const [selectedSkills, setSelectedSkills] = useState([]);
             </select> */}
             <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
             {/* <input onChange={handleBio} type="text" placeholder="Bio" className="input input-bordered w-full max-w-xs" /> */}
+           
             <label className="form-control">
   <div className="label">
     <span className="label-text">Your bio</span>
-    <span className="label-text-alt">Alt label</span>
   </div>
-  <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-  <div className="label">
-    <span className="label-text-alt">Your bio</span>
-    <span className="label-text-alt">Alt label</span>
-  </div>
-            </label>
+  <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Write something catchy"></textarea>
+     </label>
 
              <label className="form-control">
   <div className="label">
-    <span className="label-text">Your bio</span>
-    <span className="label-text-alt">Alt label</span>
+    <span className="label-text">About</span>
   </div>
   <textarea onChange={handleAbout} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-  <div className="label">
-    <span className="label-text-alt">Your bio</span>
-    <span className="label-text-alt">Alt label</span>
-  </div>
+
             </label>
-            
-  {/* <input onChange={handleAbout} type="text" placeholder="about" className="input input-bordered w-full max-w-xs" /> */}
           </div>
           
           <div className="max-w-md mx-auto p-8">
@@ -145,7 +135,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
         Select your skills (up to 3)
         </label>
         <span>{selectedSkills.map((items) => {
-          return <p>{items}</p>
+          return <button className="btn no-animation">{items}</button>
         })}</span>
       <div className="space-y-2">
         {skillsList.map(skill => (
