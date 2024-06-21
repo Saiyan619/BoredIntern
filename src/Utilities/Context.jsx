@@ -75,10 +75,11 @@ export const Context = ({ children }) => {
   }
   
   // function for getting only the employers data
-  const createEmployerDetails = async (FirstName, LastName, email, Company, bio, about, skillsList) => {
+  const createEmployerDetails = async (profileImg, FirstName, LastName, email, Company, bio, about, skillsList) => {
     try {
       await setDoc(doc(db, 'Employerusers', User.uid), {
         uid: User.uid,
+        profileImg,
         FirstName,
         LastName,
         Email: email || '',
@@ -98,12 +99,13 @@ export const Context = ({ children }) => {
   }
 
   // function for getting only the interns data
-  const createInternDetails = async (FirstName, LastName, email, skillsList, bio, about) => {
+  const createInternDetails = async (FirstName, LastName, profileImg, email, skillsList, bio, about) => {
     try {
       await setDoc(doc(db, 'Internusers', User.uid), {
         uid: User.uid,
         FirstName,
         LastName,
+        ProfilePicture: profileImg || '',
         Email: email || '',
         skillsList,
         Bio: bio || '',

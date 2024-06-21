@@ -1,12 +1,22 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../Utilities/Context'
 import LogoutModal from '../Components/LogoutModal'
 
 const Navigation = () => {
-  const { logOut } = UserContext()
+  const {User, logOut, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer  } = UserContext()
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchUserData();
+    if (userDetails?.itOrEm === 'intern') {
+      fetchUserDataIntern()
+    } else if (userDetails?.itOrEm === 'employer') {
+      fetchUserDataEmployer()
+    }  
+  }, [User]);
 
   const logOutUser = async() => {
     try {
@@ -49,7 +59,8 @@ const Navigation = () => {
   <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.ProfilePicture} />
+              {/* <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
         </div>
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">

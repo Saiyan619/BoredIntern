@@ -23,7 +23,8 @@ const ProfilePage = () => {
       <div className='flex flex-col border rounded w-full lg:w-3/5  bg-blue-100 p-4'>
         <div className="avatar">
   <div className="w-24 rounded-full">
-    <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+    <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.ProfilePicture} />
+    {/* <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
   </div>
         </div>
         <span className='text-3xl'>{userDetailsIntern?.FirstName || userDetailsEmployer?.FirstName} {userDetailsIntern?.LastName || userDetailsEmployer?.LastName}</span>
