@@ -18,6 +18,13 @@ const Navigation = () => {
     }  
   }, [User]);
 
+  function handleNavigate() {
+    if (userDetails?.itOrEm === 'intern') {
+      console.log('cannot post jobs as an intern')
+    } else if (userDetails?.itOrEm === 'employer') {
+      navigate('/PostJobs')
+    }  
+  }
   const logOutUser = async() => {
     try {
         await logOut()
@@ -39,7 +46,8 @@ const Navigation = () => {
             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
             
               <Link to={'/Home'}><li><a>Home</a></li></Link>
-              <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link>
+              {/* <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link> */}
+              <li onClick={handleNavigate}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
       </ul>
@@ -49,7 +57,8 @@ const Navigation = () => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
     <Link to={'/Home'}><li><a>Home</a></li></Link>
-              <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link>
+              {/* <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link> */}
+              <li onClick={handleNavigate}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
               
