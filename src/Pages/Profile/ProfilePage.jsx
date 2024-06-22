@@ -9,11 +9,14 @@ const ProfilePage = () => {
     fetchUserData();
     if (userDetails?.itOrEm === 'intern') {
       fetchUserDataIntern()
+      console.log(fetchUserDataEmployer())
     } else if (userDetails?.itOrEm === 'employer') {
       fetchUserDataEmployer()
     }  
   }, [User]);
   
+ 
+  // console.log(fetchUserDataIntern())
   return (
     <div>
       <Navigation />
@@ -23,7 +26,7 @@ const ProfilePage = () => {
       <div className='flex flex-col border rounded w-full lg:w-3/5  bg-blue-100 p-4'>
         <div className="avatar">
   <div className="w-24 rounded-full">
-    <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.ProfilePicture} />
+    <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg} />
     {/* <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
   </div>
         </div>

@@ -1,7 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
-import { auth } from '../Utilities/firebaseConfig';
 import { UserContext } from '../Utilities/Context';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '../Utilities/firebaseConfig';
 
 const CreateProfileEmployer = () => {
   const [FirstName, setFirstName] = useState('')
@@ -10,6 +11,7 @@ const CreateProfileEmployer = () => {
   const [Email, setEmail] = useState('')
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
+  const [imgProfile, setImgProfile] = useState('')
 
   function handleFirstName(e) {
     setFirstName(e.target.value)
@@ -26,7 +28,7 @@ const CreateProfileEmployer = () => {
     setAbout(e.target.value)
   }
 
-  const { createEmployerDetails, allUsers, User } = UserContext()
+  const { createEmployerDetails, allUsers, User } = UserContext();
   
   const skillsList = [
     { value: 'software-developer', label: 'Software Developer' },
@@ -57,14 +59,29 @@ const [selectedSkills, setSelectedSkills] = useState([]);
   console.log(selectedSkills)
 
   const createEmployerProfile = async () => {
-    if (FirstName && LastName && Company !== '') {
-      await createEmployerDetails(FirstName, LastName, Email, Company, Bio, About, selectedSkills)
-      allUsers();
-    } else {
-      console.log('fill in the spaces')
+    try {
+      
+        const timestamp = new Date().getTime();
+        if (imgProfile) {
+          let imageRef = ref(storage, `profilePicture/${timestamp}`);
+          let snap = await uploadBytes(imageRef, imgProfile);
+          const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+          console.log('pic uploaded')
+          if (FirstName && LastName && Company !== '') {
+            await createEmployerDetails(getUrl, FirstName, LastName, Email, Company, Bio, About, selectedSkills)
+            allUsers();
+          } else {
+            console.log('fill in the spaces')
+          }
+        
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
    
-  }
+   
+
 
 
   
@@ -92,6 +109,14 @@ const [selectedSkills, setSelectedSkills] = useState([]);
   <div className="label">
   </div>
       </label>
+
+      <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Profile Pic</span>
+  </div>
+  <input onChange={(e)=>{setImgProfile(e.target.files[0])}} type="file" className="file-input file-input-bordered w-full max-w-xs" />
+
+          </label>    
       
       <label className="form-control w-full max-w-xs">
             <div className="label">
@@ -166,5 +191,6 @@ const [selectedSkills, setSelectedSkills] = useState([]);
     </div>
   )
 }
+
 
 export default CreateProfileEmployer

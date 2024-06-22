@@ -22,7 +22,7 @@ const Navigation = () => {
     if (userDetails?.itOrEm === 'intern') {
       console.log('cannot post jobs as an intern')
     } else if (userDetails?.itOrEm === 'employer') {
-      navigate('/PostJobs')
+      navigate('/PostJobs');
     }  
   }
   const logOutUser = async() => {
