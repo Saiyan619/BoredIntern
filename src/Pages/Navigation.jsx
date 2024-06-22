@@ -25,15 +25,7 @@ const Navigation = () => {
       navigate('/PostJobs');
     }  
   }
-  const logOutUser = async() => {
-    try {
-        await logOut()
-        navigate('/')
-        console.log('logged out')
-    } catch (error) {
-        console.log(error)
-    }
-}
+
 
   return (
       <div>
@@ -68,7 +60,7 @@ const Navigation = () => {
   <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-              <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.ProfilePicture} />
+              <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg} />
               {/* <img alt="Tailwind CSS Navbar component" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
         </div>
       </div>
