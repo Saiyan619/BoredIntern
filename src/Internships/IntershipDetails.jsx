@@ -44,10 +44,8 @@ const IntershipDetails = () => {
               {jobDetails?.description}
                   </div>
                     </div>
-                    
-                    
-                    <ApplyModal />
-
+                
+<ApplyModal />
               
                 </div>
                 </div>

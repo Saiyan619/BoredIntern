@@ -13,8 +13,11 @@ const PostJobs = () => {
   const [location, setLocation] = useState('')
   const [hireTimeLimit, sethireTimeLimit] = useState('')
 
-    function handleSalary(e) {
-       setSalary(e.target.value)
+  function handleSalary(e) {
+    const newValue = e.target.value;
+    if (/^[0-9\b]+$/.test(newValue)) {
+      setSalary(newValue)
+    }
     }function handleJobtype(e) {
        setjobType(e.target.value)
     }function handleJobDur(e) {
@@ -100,9 +103,9 @@ const PostJobs = () => {
         <div className='mt-5'>
         <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Salary($)</span>
+    <span className="label-text">Salary($)/Year</span>
                 </div>
-            <input onChange={handleSalary} type="text" placeholder="salary" className="input input-bordered w-full max-w-xs" />
+            <input onChange={handleSalary} value={salary} type="number"  placeholder="salary" className="input input-bordered w-full max-w-xs" />
           </label>
           
           <label className="form-control w-full max-w-xs">
