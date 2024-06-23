@@ -233,12 +233,28 @@ export const Context = ({ children }) => {
       console.log(error)
     }
     
-}
+  }
+ 
+
+  const appliedJobs = async (fullName, email, resume, jobId) => {
+    try {
+      const appJobRef = doc(db, 'appliedJobs', User.uid)
+      await setDoc(appJobRef, {
+        uid: User.uid,
+        fullName,
+        email,
+        resume,
+        jobId
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
     
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs}}>
     {children}
 </globalContext.Provider>
   )

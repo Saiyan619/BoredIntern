@@ -45,7 +45,7 @@ const IntershipDetails = () => {
                   </div>
                     </div>
                 
-<ApplyModal />
+                    <ApplyModal id = {id}/>
               
                 </div>
                 </div>

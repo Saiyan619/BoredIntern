@@ -1,11 +1,35 @@
 import React from 'react'
 import { useState } from 'react'
+import { UserContext } from '../Utilities/Context'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { storage } from '../Utilities/firebaseConfig'
 
-const ApplyModal = () => {
+const ApplyModal = ({id}) => {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [cv, setCv] = useState('')
  
+  const { User, appliedJobs } = UserContext();
+ 
+
+  const applyJob = async() => {
+          const timestamp = new Date().getTime();
+    try {
+      if (cv) {
+        let cvRef = ref(storage, `CV/${timestamp}`);
+        let snap = await uploadBytes(cvRef, cv);
+        const getCvUrl = await getDownloadURL(ref(storage, snap.ref.fullPath))
+        console.log('cv uploaded');
+        appliedJobs(fullName, email, getCvUrl, id);
+        console.log('job applied to')
+      }
+     
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   return (
     <div>
 
@@ -39,7 +63,7 @@ const ApplyModal = () => {
           </label>  
 
                   <div className="modal-action">
-                  <button className="btn">Apply</button>
+                  <button onClick={applyJob} className="btn">Apply</button>
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
         <button className="btn">Close</button>
