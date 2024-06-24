@@ -6,18 +6,28 @@ import Navigation from '../Pages/Navigation';
 import ApplyModal from '../Components/ApplyModal';
 
 const IntershipDetails = () => {
-    const {User, getJobDetails, jobDetails} = UserContext()
+    const {User, getJobDetails, jobDetails, jobsApplied, fetchAppliedJobs, } = UserContext()
     const { id } = useParams();
     console.log(id)
+    
     useEffect(() => {
         getJobDetails(id)
-    }, [User])
+        fetchAppliedJobs(id)
+        console.log(jobsApplied)
+    }, [User]);
+    // useEffect(() => {
+    //     // fetchAppliedJobs(id)
+    //     console.log(appliedJobs)
+    // }, [User])
     
     return (
         <div>
             <Navigation />
       <div className='p-4 sm:p-6'>
-          <div className='flex flex-col'>
+                <div className='flex flex-col'>
+                    {jobsApplied?.map((item) => {
+                        return <p>{item.fullName}</p>
+                   })}
               <div className='flex items-center gap-5 flex-wrap'>
                  <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role.map((item) => item)}</h1> 
                   {jobDetails?.duration}

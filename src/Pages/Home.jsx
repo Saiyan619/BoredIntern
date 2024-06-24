@@ -7,7 +7,7 @@ import Card from '../Components/Card'
 
 
 const Home = () => {
-    const { User, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer } = UserContext()
+    const { User, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer, appliedJobs, fetchAppliedJobs } = UserContext()
   const navigate = useNavigate()
   
   console.log(User?.email);
@@ -21,7 +21,8 @@ const Home = () => {
       fetchUserDataIntern()
     } else if (userDetails?.itOrEm === 'employer') {
       fetchUserDataEmployer()
-    }    
+    }  
+    
     // console.log(userDetails);
   }, [User]);
 

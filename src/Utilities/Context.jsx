@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import { auth, db } from './firebaseConfig'
-import {addDoc, collection, doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore'
+import {addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from 'firebase/firestore'
 
 
 const globalContext = createContext()
@@ -18,31 +18,31 @@ export const Context = ({ children }) => {
   const navigate = useNavigate();
 
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        })
-      return () => {
-        unsubscribe()
-      }
-    }, [])
-// First three functions are self-explanitory
-    const signUp = async(email, password) => {
-       try {
-        return await createUserWithEmailAndPassword(auth, email, password)
-       } catch (error) {
-        console.log(error)
-       }
-   }
-    const logIn = async(email, password) => {
-        try {
-            return await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            console.log(error)
-        }
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+    })
+    return () => {
+      unsubscribe()
     }
-    const logOut = async () => {
-       return await signOut(auth)
+  }, [])
+  // First three functions are self-explanitory
+  const signUp = async (email, password) => {
+    try {
+      return await createUserWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const logIn = async (email, password) => {
+    try {
+      return await signInWithEmailAndPassword(auth, email, password)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const logOut = async () => {
+    return await signOut(auth)
   }
 
   // Function for getting a random set of numbers for uid/ids
@@ -54,7 +54,7 @@ export const Context = ({ children }) => {
   // const randomUid = generateRandomUid()
 
 
-   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
+  const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   const formattedTimestamp = new Date(currentTimestamp * 1000).toLocaleString();
 
   // function for getting and storing the dat of all users either employers or interns
@@ -72,7 +72,7 @@ export const Context = ({ children }) => {
     }
     catch (error) {
       console.log(error)
-     }
+    }
   }
   
   // function for getting only the employers data
@@ -88,7 +88,7 @@ export const Context = ({ children }) => {
         Bio: bio || '',
         About: about || '',
         Employer: 'yes',
-        skillsList      
+        skillsList
       });
       console.log('Welcome employer');
       navigate('/Home')
@@ -96,7 +96,7 @@ export const Context = ({ children }) => {
     }
     catch (error) {
       console.log(error)
-     }
+    }
   }
 
   // function for getting only the interns data
@@ -111,7 +111,7 @@ export const Context = ({ children }) => {
         skillsList,
         Bio: bio || '',
         About: about || '',
-        Intern:'yes'
+        Intern: 'yes'
       });
       console.log('Welcome intern');
       navigate('/Home')
@@ -119,8 +119,8 @@ export const Context = ({ children }) => {
     }
     catch (error) {
       console.log(error)
-     }
-  } 
+    }
+  }
 
   // function for fetching the data of all the users either employers or interns
   const fetchUserData = async () => {
@@ -151,14 +151,14 @@ export const Context = ({ children }) => {
       
       }
     } catch (error) {
-          console.log(error)
-        }
+      console.log(error)
+    }
    
 
   }
   
   // function for getting only interns data 
-    const fetchUserDataIntern = async () => {
+  const fetchUserDataIntern = async () => {
     try {
       if (User?.uid) {
         const docRef = doc(db, 'Internusers', User?.uid);
@@ -169,8 +169,8 @@ export const Context = ({ children }) => {
       
       }
     } catch (error) {
-          console.log(error)
-        }
+      console.log(error)
+    }
    
   }
   
@@ -178,26 +178,26 @@ export const Context = ({ children }) => {
     // createdAt: formattedTimestamp,
     try {
       // const notify = () => toast("Job Posted 😁");
-        // setSpinner(true);
-        const postRef = collection(db, "jobs");
-        await addDoc(postRef, {
-          role,
-          salary,
-          typeOfWork,
-          duration,
-          description,
-          // postedBy: userDetails?.UsernameInput,
-          userId: User?.uid,
-          // jobId:formattedTimestamp,
-          company,
-          location,
-          DatePosted: formattedTimestamp,
-          HireStopAt: hireStopAt || ''
-        });
+      // setSpinner(true);
+      const postRef = collection(db, "jobs");
+      await addDoc(postRef, {
+        role,
+        salary,
+        typeOfWork,
+        duration,
+        description,
+        // postedBy: userDetails?.UsernameInput,
+        userId: User?.uid,
+        // jobId:formattedTimestamp,
+        company,
+        location,
+        DatePosted: formattedTimestamp,
+        HireStopAt: hireStopAt || ''
+      });
 
-        console.log("posted");
-        // setSpinner(null);
-        // notify();
+      console.log("posted");
+      // setSpinner(null);
+      // notify();
     
     } catch (error) {
       // alert('Something went wrong, please try again')
@@ -222,14 +222,14 @@ export const Context = ({ children }) => {
   const getJobDetails = async (id) => {
     try {
       const docRef = doc(db, 'jobs', id)
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const jobDets = docSnap.data();
-      setJobDetails(jobDets);
-      console.log('details shown')
-    } else {
-      console.log('file not file somethins wrong')
-    }
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const jobDets = docSnap.data();
+        setJobDetails(jobDets);
+        console.log('details shown')
+      } else {
+        console.log('file not file somethins wrong')
+      }
     } catch (error) {
       console.log(error)
     }
@@ -254,24 +254,29 @@ export const Context = ({ children }) => {
     
   const fetchAppliedJobs = async (id) => {
     try {
-      const docRef = doc(db, 'appliedJobs', id);
-      const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const appJobs = docSnap.data();
-      setjobsApplied(appJobs);
-      console.log('applicants shown')
-    } else {
-      console.log('file not file somethins wrong')
-    }
+       if (User) {
+      const q = query(collection(db, "appliedJobs"), where("jobId", "==", id));
+      const querySnapshot = await getDocs(q);
+      let appJobs = [];
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+        appJobs.push(doc.data());
+        setjobsApplied(appJobs);
+        console.log('applicants shown')
+        console.log(jobsApplied);
+      });
+     
+    } 
     } catch (error) {
-      console.log(error)
+      console.error(error);
     }
  
   }
+
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs}}>
     {children}
 </globalContext.Provider>
   )
