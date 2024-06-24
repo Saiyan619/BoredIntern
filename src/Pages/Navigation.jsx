@@ -42,6 +42,7 @@ const Navigation = () => {
               <li onClick={handleNavigate}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
+              <Link to={'/DashBoard'}><li> <a>Dashboard</a></li></Link>
       </ul>
     </div>
    <Link to={'/Home'}><a className="btn btn-ghost text-xl">BoredIntern</a></Link>
@@ -53,6 +54,7 @@ const Navigation = () => {
               <li onClick={handleNavigate}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
+              <Link to={'/DashBoard'}><li> <a>Dashboard</a></li></Link>
               
     </ul>
         </div>
