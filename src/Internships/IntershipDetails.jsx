@@ -15,10 +15,7 @@ const IntershipDetails = () => {
         fetchAppliedJobs(id)
         console.log(jobsApplied)
     }, [User]);
-    // useEffect(() => {
-    //     // fetchAppliedJobs(id)
-    //     console.log(appliedJobs)
-    // }, [User])
+  
     
     return (
         <div>
