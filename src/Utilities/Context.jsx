@@ -14,6 +14,7 @@ export const Context = ({ children }) => {
   const [allJobs, setAllJobs] = useState()
   const [jobDetails, setJobDetails] = useState()
   const [jobsApplied, setjobsApplied] = useState()
+  const [uploadJobs, setUploadJobs] = useState()
 
   const navigate = useNavigate();
 
@@ -273,10 +274,21 @@ export const Context = ({ children }) => {
  
   }
 
+  const uploadedJobs = async () => {
+    const q = query(collection(db, "jobs"), where("userId", "==", User.uid));
+    const querySnapshot = await getDocs(q);
+    let upJobs = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      upJobs.push(doc.data());
+      setUploadJobs(upJobs);
+      console.log('your posted jobs')
+      console.log(uploadJobs);
+    });  }
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, uploadJobs, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs, uploadedJobs}}>
     {children}
 </globalContext.Provider>
   )

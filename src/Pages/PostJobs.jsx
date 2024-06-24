@@ -66,7 +66,7 @@ const PostJobs = () => {
           setSelectedSkills(selectedSkills.filter(skill => skill !== value));
         }
       };
-      console.log(selectedSkills)
+
   return (
       <div>
       <Navigation />
