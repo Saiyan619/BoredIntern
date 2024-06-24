@@ -13,6 +13,7 @@ export const Context = ({ children }) => {
   const [userDetailsEmployer, setuserDetailsEmployer] = useState();
   const [allJobs, setAllJobs] = useState()
   const [jobDetails, setJobDetails] = useState()
+  const [jobsApplied, setjobsApplied] = useState()
 
   const navigate = useNavigate();
 
@@ -251,6 +252,22 @@ export const Context = ({ children }) => {
     }
   }
     
+  const fetchAppliedJobs = async (id) => {
+    try {
+      const docRef = doc(db, 'appliedJobs', id);
+      const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const appJobs = docSnap.data();
+      setjobsApplied(appJobs);
+      console.log('applicants shown')
+    } else {
+      console.log('file not file somethins wrong')
+    }
+    } catch (error) {
+      console.log(error)
+    }
+ 
+  }
    
     
   return (
