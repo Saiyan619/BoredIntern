@@ -213,10 +213,9 @@ export const Context = ({ children }) => {
       querySnapshot.forEach((doc) => {
         jobs.push({ ...doc.data(), id: doc.id });
         setAllJobs(jobs);
-        console.log(jobs);
-      });
+        console.log(jobs)
+      })
     });
-
     return () => unsub();
   };
     
@@ -237,11 +236,23 @@ export const Context = ({ children }) => {
     
   }
  
+  const uploadedJobs = async () => {
+    const q = query(collection(db, "jobs"), where("userId", "==", User.uid));
+    const querySnapshot = await getDocs(q);
+    let upJobs = [];
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      upJobs.push({ ...doc.data(), id: doc.id });
+      setUploadJobs(upJobs);
+      console.log('your posted jobs')
+      console.log(uploadJobs);
+    });  }
 
   const appliedJobs = async (fullName, email, resume, jobId) => {
     try {
-      const appJobRef = doc(db, 'appliedJobs', User.uid)
-      await setDoc(appJobRef, {
+   
+         const appJobRef = collection(db, "appliedJobs");
+      await addDoc(appJobRef, {
         uid: User.uid,
         fullName,
         email,
@@ -274,17 +285,7 @@ export const Context = ({ children }) => {
  
   }
 
-  const uploadedJobs = async () => {
-    const q = query(collection(db, "jobs"), where("userId", "==", User.uid));
-    const querySnapshot = await getDocs(q);
-    let upJobs = [];
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      upJobs.push(doc.data());
-      setUploadJobs(upJobs);
-      console.log('your posted jobs')
-      console.log(uploadJobs);
-    });  }
+  
    
     
   return (

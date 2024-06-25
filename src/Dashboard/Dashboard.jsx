@@ -5,21 +5,29 @@ import { Link } from 'react-router-dom'
 import Navigation from '../Pages/Navigation'
 
 const Dashboard = () => {
-    const { User, getJobs, allJobs, uploadedJobs, uploadJobs } = UserContext()
+  const { User, uploadedJobs, uploadJobs, fetchAppliedJobs, jobsApplied } = UserContext()
+    
 
   useEffect(() => {
       uploadedJobs()
   }, [User])
+
+
+
   return (
       <div>
           <Navigation />
 
             {uploadJobs?.map((item) => {
-        return <div>
+              return <div>
+                            <button className='bg-black text-white p-2 rounded' onClick={() => fetchAppliedJobs(item.id)} type="button">show applicants</button>
+
            <Link to={`/Internships/InternshipDetails/${item.id}`}>
           <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
             <div className="card-body">
-              <div className='flex justify-between flex-wrap'>
+                <div className='flex justify-between flex-wrap'>
+                  {item.id}
+
     <h2 className="card-title">
                 {item?.role.map((item, key) => {
                   return <p>{item}</p>
@@ -38,6 +46,12 @@ const Dashboard = () => {
   
           </div>
           </Link>
+        </div>
+            })}
+      {jobsApplied?.map((item) => {
+        return <div>
+          <p>{item.fullName}</p>
+          <p>{item.email}</p>
         </div>
       })}
     </div>

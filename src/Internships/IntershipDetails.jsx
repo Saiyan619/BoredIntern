@@ -13,7 +13,7 @@ const IntershipDetails = () => {
     useEffect(() => {
         getJobDetails(id)
         fetchAppliedJobs(id)
-        console.log(jobsApplied)
+        // console.log(jobsApplied)
     }, [User]);
   
     
