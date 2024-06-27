@@ -9,19 +9,25 @@ const ApplyModal = ({id}) => {
   const [email, setEmail] = useState('')
   const [cv, setCv] = useState('')
  
-  const { User, appliedJobs } = UserContext();
+  const { User, appliedJobs, loader, setLoader } = UserContext();
  
 
   const applyJob = async() => {
           const timestamp = new Date().getTime();
     try {
       if (cv) {
+        setLoader('loading')
         let cvRef = ref(storage, `CV/${timestamp}`);
         let snap = await uploadBytes(cvRef, cv);
         const getCvUrl = await getDownloadURL(ref(storage, snap.ref.fullPath))
         console.log('cv uploaded');
         appliedJobs(fullName, email, getCvUrl, id);
         console.log('job applied to')
+        alert('You have successfully applied... just pray say employer call you')
+        setLoader('')
+        setFullName('')
+        setEmail('')
+        setCv([])
       }
      
     } catch (error) {
@@ -63,7 +69,7 @@ const ApplyModal = ({id}) => {
           </label>  
 
                   <div className="modal-action">
-                  <button onClick={applyJob} className="btn">Apply</button>
+                  <button onClick={applyJob} className="btn"><span className={`${loader} loading-spinner`}></span>Apply</button>
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
         <button className="btn">Close</button>

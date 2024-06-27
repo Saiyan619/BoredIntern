@@ -32,12 +32,22 @@ const PostJobs = () => {
        sethireTimeLimit(e.target.value)
     }
 
-    const { User, postJob } = UserContext();
+    const { User, postJob, loader, setLoader } = UserContext();
     const jobPost = async () => {
-        try {
-            await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, hireTimeLimit)  
+      try {
+        setLoader('loading')
+        await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, hireTimeLimit)  
+        alert('JOB POSTED')
+        setLoader('')
+        setSelectedSkills([])
+        setSalary('')
+        setjobType('')
+        setjobDuration('')
+        setCompany('')
+        setLocation('')
+        sethireTimeLimit('')
         } catch (error) {
-            
+            console.log(error)
         }
     }
     const skillsList = [
@@ -154,7 +164,7 @@ const PostJobs = () => {
   <textarea onChange={handleJobDesc} className="textarea textarea-bordered h-24" placeholder="Write job description here..."></textarea>
           </label>
           
-          <button onClick={jobPost} className="btn w-full rounded-full mt-5">Next</button>
+          <button onClick={jobPost} className="btn w-full rounded-full mt-5"><span className={`${loader} loading-spinner`}></span>Next</button>
 
       </div>
       </div>
