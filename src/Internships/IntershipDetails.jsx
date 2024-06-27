@@ -26,7 +26,7 @@ const IntershipDetails = () => {
                         return <p>{item.fullName}</p>
                    })}
               <div className='flex items-center gap-5 flex-wrap'>
-                 <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role.map((item) => item)}</h1> 
+                        <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role}</h1> 
                   {jobDetails?.duration}
               </div>
 

@@ -23,9 +23,7 @@ const Internships = () => {
             <div className="card-body">
               <div className='flex justify-between flex-wrap'>
     <h2 className="card-title">
-                {item?.role.map((item, key) => {
-                  return <p>{item}</p>
-                })}
+                {item?.role}
                 </h2>
  <div className="badge badge-secondary">{item.typeOfWork}</div> 
  </div>

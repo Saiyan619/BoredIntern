@@ -18,6 +18,8 @@ const Dashboard = () => {
       <div>
           <Navigation />
 
+      <div className='mt-2'></div>
+      <span className='text-3xl ml-5'>Tour Posted Jobs</span>
             {uploadJobs?.map((item) => {
               return <div>
 
@@ -61,12 +63,14 @@ const Dashboard = () => {
           <h3 className="font-bold text-lg">Applicants</h3>
     {jobsApplied?.map((item) => {
       return <div>
-        <div className='text-md bg-gray-400'>
+        <div className='text-md'>
+          <div >
         <p>{item.fullName}</p>
           <p>{item.email}</p>
           <a href={item.resume} target="_blank" rel="noopener noreferrer" className='text-blue-500'>
                 Download CV
           </a>
+          </div>
           </div>
           
 

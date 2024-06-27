@@ -1,14 +1,11 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../Utilities/Context'
 import { useEffect } from 'react'
 import Navigation from './Navigation'
 import Card from '../Components/Card'
 
-
 const Home = () => {
     const { User, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer, appliedJobs, fetchAppliedJobs } = UserContext()
-  const navigate = useNavigate()
   
   console.log(User?.email);
 

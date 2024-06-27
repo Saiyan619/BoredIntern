@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {NextUIProvider} from "@nextui-org/react";
 import SignUp from './Pages/SignUp';
 import EmployerOrIntern from './Pages/EmployerOrIntern';
 import CreateProfileEmployer from './Pages/CreateProfileEmployer';
@@ -20,7 +21,8 @@ function App() {
     <>
       
       <BrowserRouter>
-          <Context>
+        <Context>
+        <NextUIProvider>
         <Routes>
         <Route path='/' element={<SignUp />} />
             <Route path='/Login' element={<Login />} />
@@ -35,7 +37,8 @@ function App() {
             <Route path='/Dashboard' element={<Dashboard />} />
             <Route path='/Internships/InternshipDetails/:id' element={<IntershipDetails />} />
         
-          </Routes>
+            </Routes>
+            </NextUIProvider>
           </Context>
           </BrowserRouter>
     </>

@@ -1,7 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import { UserContext } from '../Utilities/Context';
+import {parseDate, getLocalTimeZone} from "@internationalized/date";
+import { useDateFormatter } from "@react-aria/i18n";
+import {Select, SelectItem} from "@nextui-org/react";
 import Navigation from './Navigation';
+import Date from '../Components/Date';
+import { skillsList } from '../Components/RoleData';
 
 const PostJobs = () => {
 
@@ -11,18 +16,21 @@ const PostJobs = () => {
   const [jobDesc, setjobDesc] = useState('')
   const [company, setCompany] = useState('')
   const [location, setLocation] = useState('')
-  const [hireTimeLimit, sethireTimeLimit] = useState('')
+  const [hireTimeLimit, sethireTimeLimit] = React.useState(parseDate("2024-04-04"));
+// const [value, setValue] = React.useState(parseDate("2024-04-04"));
+ 
+  let formatter = useDateFormatter({ dateStyle: "full" });
+  // console.log(formatter.format(hireTimeLimit.toDate(getLocalTimeZone())))
+  let NewDate = (formatter.format(hireTimeLimit.toDate(getLocalTimeZone())));
+  // console.log(NewDate)
 
   function handleSalary(e) {
     const newValue = e.target.value;
     if (/^[0-9\b]+$/.test(newValue)) {
       setSalary(newValue)
     }
-    }function handleJobtype(e) {
-       setjobType(e.target.value)
-    }function handleJobDur(e) {
-       setjobDuration(e.target.value)
-    }function handleJobDesc(e) {
+    }
+  function handleJobDesc(e) {
        setjobDesc(e.target.value)
     }function handleCompany(e) {
        setCompany(e.target.value)
@@ -33,82 +41,70 @@ const PostJobs = () => {
     }
 
     const { User, postJob, loader, setLoader } = UserContext();
-    const jobPost = async () => {
-      try {
-        setLoader('loading')
-        await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, hireTimeLimit)  
-        alert('JOB POSTED')
-        setLoader('')
-        setSelectedSkills([])
-        setSalary('')
-        setjobType('')
-        setjobDuration('')
-        setCompany('')
-        setLocation('')
-        sethireTimeLimit('')
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const skillsList = [
-        { value: 'software-developer', label: 'Software Developer' },
-        { value: 'frontend-developer', label: 'Frontend Developer' },
-        { value: 'backend-developer', label: 'Backend Developer' },
-        { value: 'fullstack-developer', label: 'Fullstack Developer' },
-        { value: 'data-scientist', label: 'Data Scientist' },
-        { value: 'ui-ux-designer', label: 'UI/UX Designer' },
-      ];
-    const [selectedSkills, setSelectedSkills] = useState([]);
-      const [warning, setWarning] = useState(false);
-    
-      const handleCheckboxChange = (event) => {
-        const { value, checked } = event.target;
-    
-        if (checked && selectedSkills.length >= 1) {
-          setWarning(true);
-          return;
-        }
-    
-        setWarning(false);
-        if (checked) {
-          setSelectedSkills([...selectedSkills, value]);
-        } else {
-          setSelectedSkills(selectedSkills.filter(skill => skill !== value));
-        }
-      };
+   
+  const [selectedSkills, setSelectedSkills] = useState('');
+    const jobTypeData = [
+        { key: 'On-Site',value: 'On-Site', label: 'On-Site' },
+        { key: 'Remote',value: 'Remote', label: 'Remote' },
+        { key: 'Hybrid',value: 'Hybrid', label: 'Hybrid' },
+  ];
+  const jobDurationData = [
+    { key: 'fulltime', value: 'fulltime', label: 'Fulltime' },
+    { key: 'parttime', value: 'parttime', label: 'Part-time' },
+    { key: 'contract', value: 'contract', label: 'Contract' },
+];
+  const handleSelectionChange = (e) => {
+    setSelectedSkills(e.target.value);
+    console.log(e.target.value)
+  };
+  const handleJobTypeChange = (e) => {
+    setjobType(e.target.value);
+    console.log(e.target.value)
+  };
+  const handleJobDur = (e) => {
+    setjobDuration(e.target.value)
+  };
+
+  const jobPost = async () => {
+    try {
+      
+      await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, NewDate)  
+      alert('JOB POSTED')
+      setLoader('')
+      setSelectedSkills([])
+      setSalary('')
+      setjobType('')
+      setjobDuration('')
+      setCompany('')
+      setLocation('')
+      sethireTimeLimit('')
+      } catch (error) {
+          console.log(error)
+      }
+}
+   
 
   return (
       <div>
       <Navigation />
       <div className='p-5'>
-      <div className=" flex items-left flex-col">
-      <label className="block text-lg font-medium text-gray-700 mb-4">
-        Select your role (only one)
-        </label>
-        <span>{selectedSkills.map((items) => {
-          return <p>{items}</p>
-        })}</span>
-      <div className="space-y-2">
-        {skillsList.map(skill => (
-          <div key={skill.value} className="flex items-center">
-            <input
-              type="checkbox"
-              id={skill.value}
-              value={skill.value}
-              checked={selectedSkills.includes(skill.value)}
-              onChange={handleCheckboxChange}
-              className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor={skill.value} className="ml-2 block text-sm text-gray-700">
-              {skill.label}
-            </label>
-          </div>
+      <div className="flex w-full max-w-xs flex-col gap-2">
+      <Select
+        label="Select Job Role"
+        variant="bordered"
+        placeholder="Select a Role"
+        selectedKeys={[selectedSkills]}
+        className="max-w-xs"
+        onChange={handleSelectionChange}
+      >
+        {skillsList.map((item) => (
+          <SelectItem key={item.key}>
+            {item.label}
+          </SelectItem>
         ))}
-      </div>
-      {warning && (
-        <p className="text-red-500 mt-2">You can only select a skill.</p>
-      )}
-          </div>
+      </Select>
+      <p className="text-small text-default-500">Selected: {selectedSkills}</p>
+    </div>
 
         <div className='mt-5'>
         <label className="form-control w-full max-w-xs">
@@ -121,15 +117,44 @@ const PostJobs = () => {
           <label className="form-control w-full max-w-xs">
   <div className="label">
     <span className="label-text">Job type</span>
-                </div>
-            <input onChange={handleJobtype} type="text" placeholder="type of work e.g remote,hybrid e.tc..." className="input input-bordered w-full max-w-xs" />
+            </div>
+            <Select
+        label="Select Job Type"
+        variant="bordered"
+        placeholder="Select a Job Type"
+        selectedKeys={[jobType]}
+        className="max-w-xs"
+        onChange={handleJobTypeChange}
+      >
+        {jobTypeData.map((item) => (
+          <SelectItem key={item.key}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <p className="text-small text-default-500">Selected: {jobType}</p>
           </label>
           
           <label className="form-control w-full max-w-xs">
+            
   <div className="label">
     <span className="label-text">Duration</span>
-                </div>
-            <input onChange={handleJobDur} type="text" placeholder="duration e.g fulltime..." className="input input-bordered w-full max-w-xs" />
+            </div>
+            <Select
+        label="Select Job Type"
+        variant="bordered"
+        placeholder="Select a Job Type"
+        selectedKeys={[jobDuration]}
+        className="max-w-xs"
+        onChange={handleJobDur}
+      >
+        {jobDurationData.map((item) => (
+          <SelectItem key={item.key}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <p className="text-small text-default-500">Selected: {jobDuration}</p>
           </label>
           
           <label className="form-control w-full max-w-xs">
@@ -146,11 +171,18 @@ const PostJobs = () => {
             <input  onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
           </label>
           
-          <label className="form-control w-full max-w-xs">
+          {/* <label className="form-control w-full max-w-xs">
   <div className="label">
     <span className="label-text">Deadline</span>
                 </div>
             <input onChange={handleHireLimit} type="text" placeholder="deadline" className="input input-bordered w-full max-w-xs" />
+          </label> */}
+          <label className="form-control w-full max-w-xs">
+  <div className="label">
+    <span className="label-text">Deadline</span>
+            </div>
+            <Date hireTimeLimit={hireTimeLimit}
+              sethireTimeLimit={sethireTimeLimit} />
           </label>
           
 
