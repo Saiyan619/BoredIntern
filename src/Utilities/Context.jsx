@@ -28,7 +28,7 @@ export const Context = ({ children }) => {
       unsubscribe()
     }
   }, [])
-  // First three functions are self-explanitory
+  // First three functions are for my Authentication..... their use is pretty self-explanitory
   const signUp = async (email, password) => {
     try {
       return await createUserWithEmailAndPassword(auth, email, password)
@@ -47,15 +47,9 @@ export const Context = ({ children }) => {
     return await signOut(auth)
   }
 
-  // Function for getting a random set of numbers for uid/ids
-  // function generateRandomUid() {
-  //   const timestamp = new Date().getTime().toString(16); // Convert current time to hexadecimal
-  //   const randomPart = Math.random().toString(16).substring(2); // Generate random hexadecimal
-  //   return timestamp + randomPart;
-  // }
-  // const randomUid = generateRandomUid()
 
 
+// Variable for getting random set of number for my UIDs/IDs
   const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   const formattedTimestamp = new Date(currentTimestamp * 1000).toLocaleString();
 
@@ -176,8 +170,9 @@ export const Context = ({ children }) => {
    
   }
   
+
+  // Function for Posting Jobs for interns (can only be used by employers(this command was set in the Navigation component instead))
   const postJob = async (role, salary, typeOfWork, duration, description, company, location, hireStopAt) => {
-    // createdAt: formattedTimestamp,
     try {
       // const notify = () => toast("Job Posted 😁");
       // setSpinner(true);

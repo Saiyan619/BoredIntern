@@ -6,7 +6,6 @@ import {parseDate, getLocalTimeZone} from "@internationalized/date";
 import {useDateFormatter} from "@react-aria/i18n";
 import {Select, SelectItem} from "@nextui-org/react";
 import Navigation from './Navigation';
-// import Date from '../Components/Date';
 import { skillsList } from '../Components/RoleData';
 
 const PostJobs = () => {
@@ -18,12 +17,9 @@ const PostJobs = () => {
   const [company, setCompany] = useState('')
   const [location, setLocation] = useState('')
   const [hireTimeLimit, sethireTimeLimit] = React.useState(parseDate("2024-04-04"));
-// const [value, setValue] = React.useState(parseDate("2024-04-04"));
  
   let formatter = useDateFormatter({ dateStyle: "full" });
-  // console.log(formatter.format(hireTimeLimit.toDate(getLocalTimeZone())))
   let NewDate = (formatter.format(hireTimeLimit.toDate(getLocalTimeZone())));
-  // console.log(NewDate)
 
   function handleSalary(e) {
     const newValue = e.target.value;
@@ -37,8 +33,6 @@ const PostJobs = () => {
        setCompany(e.target.value)
     }function handleLocation(e) {
        setLocation(e.target.value)
-    }function handleHireLimit(e) {
-       sethireTimeLimit(e.target.value)
     }
 
     const { User, postJob, loader, setLoader } = UserContext();
@@ -68,7 +62,7 @@ const PostJobs = () => {
 
   const jobPost = async () => {
     try {
-      
+      setLoader('loading')
       await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, NewDate)  
       alert('JOB POSTED')
       setLoader('')
@@ -102,7 +96,7 @@ const PostJobs = () => {
           <SelectItem key={item.key}>
             {item.label}
           </SelectItem>
-        ))}
+        ))}  
       </Select>
       <p className="text-small text-default-500">Selected: {selectedSkills}</p>
     </div>
@@ -172,18 +166,12 @@ const PostJobs = () => {
             <input  onChange={handleLocation} type="text" placeholder="location" className="input input-bordered w-full max-w-xs" />
           </label>
           
-          {/* <label className="form-control w-full max-w-xs">
-  <div className="label">
-    <span className="label-text">Deadline</span>
-                </div>
-            <input onChange={handleHireLimit} type="text" placeholder="deadline" className="input input-bordered w-full max-w-xs" />
-          </label> */}
+       
           <label className="form-control w-full max-w-xs">
   <div className="label">
     <span className="label-text">Deadline</span>
             </div>
-            {/* <Date hireTimeLimit={hireTimeLimit}
-              sethireTimeLimit={sethireTimeLimit} /> */}
+
             <div className="flex flex-row gap-2">
       <div className="w-full flex flex-col gap-y-2">
         <DatePicker className="max-w-[284px]" label="Date (controlled)" value={hireTimeLimit} onChange={sethireTimeLimit} />
