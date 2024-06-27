@@ -13,7 +13,7 @@ const SignUp = () => {
   // const currentTimestamp = Math.floor(new Date().getTime() / 1000);
   // const formattedTimestamp = new Date(currentTimestamp * 1000).toLocaleString();
 
-  const { User, signUp, allUsers } = UserContext()
+  const { User, signUp, allUsers, loader, setLoader } = UserContext()
   console.log(User);
 
   const navigate = useNavigate();
@@ -38,18 +38,21 @@ const SignUp = () => {
 
   const signUpToNext = async () => {
     try {
+      setLoader('loading')
      const result = await signUp(Email, password)
       console.log(result.user)
       if (result.user) {
         // await allUsers(FirstName, LastName, Email, password, result.user.uid)
         navigate('/EmployerorIntern') && console.log('signed!!!!')
-        
+        setLoader('')
       } else {
         console.log('wrong entry')
+        setLoader('')
       }
     } catch (error) {
       console.log(error)
       console.log('wrong entry')
+      setLoader('')
     }
   }
 
@@ -90,8 +93,11 @@ const SignUp = () => {
 </label>
           </div>
 
-            <button onClick={signUpToNext} className="btn w-full rounded-full">Next</button>
+            <button onClick={signUpToNext} className="btn w-full rounded-full">
+               <span className={`${loader} loading-spinner`}></span>Next</button>
+            
           </div>
+
           <span className='text-sm mt-5'>Already using BordedIntern? <Link className='text-blue-600 underline' to={'/Login'}>Login Here</Link>.</span>
 
               </div>

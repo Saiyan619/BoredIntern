@@ -15,6 +15,7 @@ export const Context = ({ children }) => {
   const [jobDetails, setJobDetails] = useState()
   const [jobsApplied, setjobsApplied] = useState()
   const [uploadJobs, setUploadJobs] = useState()
+  const [loader, setLoader] = useState('')
 
   const navigate = useNavigate();
 
@@ -289,7 +290,7 @@ export const Context = ({ children }) => {
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, uploadJobs, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs, uploadedJobs}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, uploadJobs, loader, setLoader, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs, uploadedJobs}}>
     {children}
 </globalContext.Provider>
   )

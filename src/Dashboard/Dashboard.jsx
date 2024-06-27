@@ -20,11 +20,11 @@ const Dashboard = () => {
 
             {uploadJobs?.map((item) => {
               return <div>
-                            <button className='bg-black text-white p-2 rounded' onClick={() => fetchAppliedJobs(item.id)} type="button">show applicants</button>
 
-           <Link to={`/Internships/InternshipDetails/${item.id}`}>
+                {/* <button className='bg-black text-white p-2 rounded' onClick={() => fetchAppliedJobs(item.id)} type="button">show applicants</button> */}
           <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
-            <div className="card-body">
+                  <div className="card-body">
+                  <Link to={`/Internships/InternshipDetails/${item.id}`}>
                 <div className='flex justify-between flex-wrap'>
                   {item.id}
 
@@ -42,18 +42,43 @@ const Dashboard = () => {
       <div className="badge badge-outline">frontend</div> 
       <div className="badge badge-outline">fullstack</div>
     </div>
+                    </Link>
+                                          {/* Open the modal using document.getElementById('ID').showModal() method */}
+<button className="btn" onClick={()=>document.getElementById('my_modal_2').showModal()}><span onClick={() => fetchAppliedJobs(item.id)} >View Applicants</span></button>
+     
+                    <div>
+         
+    </div>
   </div>
-  
+                          
           </div>
-          </Link>
+                
+                
         </div>
             })}
-      {jobsApplied?.map((item) => {
-        return <div>
-          <p>{item.fullName}</p>
+      <dialog id="my_modal_2" className="modal">
+  <div className="modal-box">
+          <h3 className="font-bold text-lg">Applicants</h3>
+    {jobsApplied?.map((item) => {
+      return <div>
+        <div className='text-md bg-gray-400'>
+        <p>{item.fullName}</p>
           <p>{item.email}</p>
+          <a href={item.resume} target="_blank" rel="noopener noreferrer" className='text-blue-500'>
+                Download CV
+          </a>
+          </div>
+          
+
         </div>
-      })}
+
+    })}
+          
+  </div>
+  <form method="dialog" className="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
     </div>
   )
 }

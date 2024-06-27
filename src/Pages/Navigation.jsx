@@ -6,7 +6,7 @@ import { UserContext } from '../Utilities/Context'
 import LogoutModal from '../Components/LogoutModal'
 
 const Navigation = () => {
-  const {User, logOut, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer  } = UserContext()
+  const {User, userDetails, fetchUserData, fetchUserDataIntern, fetchUserDataEmployer, userDetailsIntern,  userDetailsEmployer  } = UserContext()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,14 +15,24 @@ const Navigation = () => {
       fetchUserDataIntern()
     } else if (userDetails?.itOrEm === 'employer') {
       fetchUserDataEmployer()
+      console.log('an Employer')
     }  
   }, [User]);
 
-  function handleNavigate() {
+  function handleNavigatePostJobs() {
     if (userDetails?.itOrEm === 'intern') {
+      alert('cannot post jobs as an intern')
       console.log('cannot post jobs as an intern')
     } else if (userDetails?.itOrEm === 'employer') {
       navigate('/PostJobs');
+    }  
+  } function handleNavigateDashBoard(event) {
+    event.preventDefault();
+    if (userDetails?.itOrEm === 'intern') {
+      alert('Interns dont have dashboards')
+      console.log('Interns dont have dashboards')
+    } else if (userDetails?.itOrEm === 'employer') {
+      navigate('/Dashboard');
     }  
   }
 
@@ -39,10 +49,11 @@ const Navigation = () => {
             
               <Link to={'/Home'}><li><a>Home</a></li></Link>
               {/* <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link> */}
-              <li onClick={handleNavigate}><a>Post jobs</a></li>
+              <li onClick={handleNavigatePostJobs}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
-              <Link to={'/DashBoard'}><li> <a>Dashboard</a></li></Link>
+              <Link onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
+
       </ul>
     </div>
    <Link to={'/Home'}><a className="btn btn-ghost text-xl">BoredIntern</a></Link>
@@ -51,10 +62,11 @@ const Navigation = () => {
     <ul className="menu menu-horizontal px-1">
     <Link to={'/Home'}><li><a>Home</a></li></Link>
               {/* <Link to={'/PostJobs'}><li><a>Post jobs</a></li></Link> */}
-              <li onClick={handleNavigate}><a>Post jobs</a></li>
+              <li onClick={handleNavigatePostJobs}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
-              <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
-              <Link to={'/DashBoard'}><li> <a>Dashboard</a></li></Link>
+              <Link to={'/Internships'}><li><a>Internships</a></li></Link>
+              <Link onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
+
               
     </ul>
         </div>
@@ -67,12 +79,8 @@ const Navigation = () => {
         </div>
       </div>
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a className="justify-between">
-            Profile
-            <span className="badge">New</span>
-          </a>
-        </li>
+            <li> <a className="justify-between">Profile<span className="badge">New</span> </a>  </li>
+            <Link onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
             {/* <li><a>Saved Jobs</a></li> */}
            
         <li><a>Saved Jobs</a></li>

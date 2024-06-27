@@ -28,7 +28,7 @@ const CreateProfileEmployer = () => {
     setAbout(e.target.value)
   }
 
-  const { createEmployerDetails, allUsers, User } = UserContext();
+  const { createEmployerDetails, allUsers, User, loader, setLoader } = UserContext();
   
   const skillsList = [
     { value: 'software-developer', label: 'Software Developer' },
@@ -62,7 +62,8 @@ const [selectedSkills, setSelectedSkills] = useState([]);
     try {
       
         const timestamp = new Date().getTime();
-        if (imgProfile) {
+      if (imgProfile) {
+        setLoader('loading')
           let imageRef = ref(storage, `profilePicture/${timestamp}`);
           let snap = await uploadBytes(imageRef, imgProfile);
           const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
@@ -70,13 +71,16 @@ const [selectedSkills, setSelectedSkills] = useState([]);
           if (FirstName && LastName && Company !== '') {
             await createEmployerDetails(getUrl, FirstName, LastName, Email, Company, Bio, About, selectedSkills)
             allUsers();
+            setLoader('loading')
           } else {
-            console.log('fill in the spaces')
+            alert('fill in the spaces')
+            setLoader('')
           }
         
         }
       } catch (error) {
-        console.log(error)
+      console.log(error)
+      setLoader('')
       }
     }
    
@@ -140,14 +144,14 @@ const [selectedSkills, setSelectedSkills] = useState([]);
   <div className="label">
     <span className="label-text">Your bio</span>
   </div>
-  <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Write something catchy"></textarea>
+  <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Make it short and catchy"></textarea>
      </label>
 
              <label className="form-control">
   <div className="label">
     <span className="label-text">About</span>
   </div>
-  <textarea onChange={handleAbout} className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
+  <textarea onChange={handleAbout} className="textarea textarea-bordered h-24" placeholder="About"></textarea>
 
             </label>
           
@@ -182,7 +186,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       )}
           </div>
           
-          <button onClick={createEmployerProfile} className="btn w-full rounded-full">Next</button>
+          <button onClick={createEmployerProfile} className="btn w-full rounded-full"> <span className={`${loader} loading-spinner`}></span>Next</button>
 
         </div>
       </div>

@@ -9,7 +9,6 @@ const ProfilePage = () => {
     fetchUserData();
     if (userDetails?.itOrEm === 'intern') {
       fetchUserDataIntern()
-      console.log(fetchUserDataEmployer())
     } else if (userDetails?.itOrEm === 'employer') {
       fetchUserDataEmployer()
     }  
@@ -20,7 +19,6 @@ const ProfilePage = () => {
   return (
     <div>
       <Navigation />
-  
       <div className='p-4'> 
       <div className='flex justify-around flex-wrap'>
       <div className='flex flex-col border rounded w-full lg:w-3/5  bg-blue-100 p-4'>

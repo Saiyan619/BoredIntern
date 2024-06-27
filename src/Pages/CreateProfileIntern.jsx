@@ -12,7 +12,7 @@ const CreateProfileIntern = () => {
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
 
-  const { createInternDetails, allUsers } = UserContext();
+  const { createInternDetails, allUsers, loader, setLoader } = UserContext();
   
   function handleFirstName(e) {
     setFirstName(e.target.value)
@@ -66,6 +66,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
 
   const internDetails = async () => {
     try {
+      setLoader('loading')
       const timestamp = new Date().getTime();
       if (imgProfile) {
       let imageRef = ref(storage, `profilePicture/${timestamp}`);
@@ -73,11 +74,13 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
         console.log('pic uploaded')
         await createInternDetails(FirstName, LastName, getUrl, Email, selectedSkills, Bio, About)
-      allUsers()
+        allUsers()
+        setLoader('')
       }
       
     } catch (error) {
       console.log(error)
+      setLoader('')
     }
   }
 
@@ -171,7 +174,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
           </div>
           
 
-          <button onClick={internDetails} className="btn w-full rounded-full mt-5">Next</button>
+          <button onClick={internDetails} className={`btn w-full rounded-full mt-5`}> <span className={`${loader} loading-spinner`}></span>Next</button>
 
         </div>
         </div>
