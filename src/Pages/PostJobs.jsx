@@ -1,11 +1,12 @@
 import React from 'react'
 import { useState } from 'react';
 import { UserContext } from '../Utilities/Context';
+import {DatePicker} from "@nextui-org/react";
 import {parseDate, getLocalTimeZone} from "@internationalized/date";
-import { useDateFormatter } from "@react-aria/i18n";
+import {useDateFormatter} from "@react-aria/i18n";
 import {Select, SelectItem} from "@nextui-org/react";
 import Navigation from './Navigation';
-import Date from '../Components/Date';
+// import Date from '../Components/Date';
 import { skillsList } from '../Components/RoleData';
 
 const PostJobs = () => {
@@ -71,13 +72,13 @@ const PostJobs = () => {
       await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, NewDate)  
       alert('JOB POSTED')
       setLoader('')
-      setSelectedSkills([])
+      // setSelectedSkills([])
       setSalary('')
       setjobType('')
       setjobDuration('')
       setCompany('')
       setLocation('')
-      sethireTimeLimit('')
+      // sethireTimeLimit('')
       } catch (error) {
           console.log(error)
       }
@@ -181,8 +182,16 @@ const PostJobs = () => {
   <div className="label">
     <span className="label-text">Deadline</span>
             </div>
-            <Date hireTimeLimit={hireTimeLimit}
-              sethireTimeLimit={sethireTimeLimit} />
+            {/* <Date hireTimeLimit={hireTimeLimit}
+              sethireTimeLimit={sethireTimeLimit} /> */}
+            <div className="flex flex-row gap-2">
+      <div className="w-full flex flex-col gap-y-2">
+        <DatePicker className="max-w-[284px]" label="Date (controlled)" value={hireTimeLimit} onChange={sethireTimeLimit} />
+        <p className="text-default-500 text-sm">
+          Selected date: {hireTimeLimit ? formatter.format(hireTimeLimit.toDate(getLocalTimeZone())) : "--"}
+        </p>
+      </div>
+    </div>
           </label>
           
 
