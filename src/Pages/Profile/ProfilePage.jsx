@@ -14,6 +14,7 @@ const ProfilePage = () => {
     }  
   }, [User]);
   
+  console.log('wtf')
  
   // console.log(fetchUserDataIntern())
   return (

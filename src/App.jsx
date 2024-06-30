@@ -16,7 +16,7 @@ import IntershipDetails from './Internships/IntershipDetails';
 import Dashboard from './Dashboard/Dashboard';
 
 function App() {
-
+  
   return (
     <>
       

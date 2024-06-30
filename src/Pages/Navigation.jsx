@@ -32,6 +32,7 @@ const Navigation = () => {
       alert('Interns dont have dashboards')
       console.log('Interns dont have dashboards')
     } else if (userDetails?.itOrEm === 'employer') {
+      console.log('wth')
       navigate('/Dashboard');
     }  
   }
@@ -52,7 +53,7 @@ const Navigation = () => {
               <li onClick={handleNavigatePostJobs}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li> <a>Internships</a></li></Link>
-              <Link onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
+              <Link to={'/Dashboard'} onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
 
       </ul>
     </div>
@@ -65,7 +66,7 @@ const Navigation = () => {
               <li onClick={handleNavigatePostJobs}><a>Post jobs</a></li>
               <Link to={'/ProfilePage'}><li><a>Profile</a></li></Link>
               <Link to={'/Internships'}><li><a>Internships</a></li></Link>
-              <Link onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
+              <Link to={'/Dashboard'} onClick={handleNavigateDashBoard}><li><a>Dashboard</a></li></Link>
 
               
     </ul>

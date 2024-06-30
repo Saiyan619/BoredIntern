@@ -31,9 +31,7 @@ const Dashboard = () => {
                   {item.id}
 
     <h2 className="card-title">
-                {item?.role.map((item, key) => {
-                  return <p>{item}</p>
-                })}
+                {item?.role}
                 </h2>
  <div className="badge badge-secondary">{item.typeOfWork}</div> 
  </div>
