@@ -5,7 +5,6 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../Utilities/firebaseConfig';
 import Navigation from '../Pages/Navigation';
 import { skillsList } from '../Components/RoleData';
-import {Select, SelectItem} from "@nextui-org/react";
 
 const SettingsPage = () => {
 
@@ -16,7 +15,7 @@ const SettingsPage = () => {
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
   const [imgProfile, setImgProfile] = useState('')
-  const [selectedSkills, setSelectedSkills] = React.useState(new Set([]));
+  const [selectedSkills, setSelectedSkills] = useState([]);
 
   function handleFirstName(e) {
     setFirstName(e.target.value)
@@ -79,41 +78,53 @@ const SettingsPage = () => {
       setLoader('')
       }
     }
-
-    const [values, setValues] = React.useState(new Set([]));
-
-  const handleSelectionChange = (e) => {
-    // setSelectedSkills(new Set(e.target.value.split(",")));
-    setValues(new Set(e.target.value.split(",")));
-    if (values.length >= 3) {
-      alert('more that 3')
-      setWarning(true);
-      return;
-    }
-      // console.log(selectedSkills)
-    console.log(values);
-    };
    
+  
+    const updateProfile = async () => {
+      try {
+        // const timestamp = new Date().getTime();
+        // let url;
+        // if (imagePost) {
+        //   const imgPostRef = ref(storage, `pins/${User.uid}/${timestamp}`);
+        //   const snap = await uploadBytes(imgPostRef, imagePost)
+        //   const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath))
+          //   url = getUrl
+
+          const timestamp = new Date().getTime(); 
+          let url;
+          if (newProfileImage) {
+            const imgRef = ref(storage, `avatar/${User.uid}/${timestamp}`)
+          const snap = await uploadBytes(imgRef, newProfileImage)
+              const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath))
+              url = getUrl;
+          }
+          
+      const updateRef = doc(db, "users", User.uid);
+      await updateDoc(updateRef, {
+          UsernameInput: newUsername === '' ? userDetails.UsernameInput : newUsername,
+          avatar: newProfileImage === '' ? userDetails?.avatar : url
+      });
+        console.log('updated')
+    } catch (error) {
+        console.error(error)
+    }
+    };9
+  
   
   return (
     <div>
       <Navigation />
       <div className='p-4'> 
       <h1 className='text-4xl'>Settings</h1>
-      <div>
-          <span className='text-2xl'>Edit/Update your profile</span> 
-          
-      </div>
-
-      <div>
-        <span className='text-2xl'>Change Theme</span> 
-      </div>
-        <div className='flex flex-col mt-20'>
+       
+        <div className='flex flex-col mt-5'>
         <span className='text-2xl'>Edit/Update your profile</span>
-        <div className='mt-5'>
-        <label className="form-control w-full max-w-xs">
+      
+          <div className='mt-5'>
+      
+            <label className="form-control w-full max-w-xs">
         <div className="label">
-        <span className="label-text">First Name</span>
+        <span className="label-text">New First Name</span>
   </div>
   <input onChange={handleFirstName} type="text" placeholder="First Name" className="input input-bordered w-full max-w-xs" />
   <div className="label">
@@ -122,7 +133,7 @@ const SettingsPage = () => {
 
       <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Last Name</span>
+    <span className="label-text">New Last Name</span>
   </div>
   <input onChange={handleLastName} type="text" placeholder="Last Name" className="input input-bordered w-full max-w-xs" />
   <div className="label">
@@ -131,7 +142,7 @@ const SettingsPage = () => {
 
       <label className="form-control w-full max-w-xs">
   <div className="label">
-    <span className="label-text">Profile Pic</span>
+    <span className="label-text">New Profile Pic</span>
   </div>
   <input onChange={(e)=>{setImgProfile(e.target.files[0])}} type="file" className="file-input file-input-bordered w-full max-w-xs" />
 
@@ -149,7 +160,7 @@ const SettingsPage = () => {
           <label className="form-control w-full max-w-xs">
 
           <div className="label">
-            <span className="label-text">Email</span>
+            <span className="label-text">New Email</span>
             </div>
             <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
 
@@ -157,14 +168,14 @@ const SettingsPage = () => {
 
           <label className="form-control">
   <div className="label">
-    <span className="label-text">Your bio</span>
+    <span className="label-text">New bio</span>
   </div>
   <textarea onChange={handleBio} className="textarea textarea-bordered h-24" placeholder="Make it short and catchy"></textarea>
      </label>
 
              <label className="form-control">
   <div className="label">
-    <span className="label-text">About</span>
+    <span className="label-text">New About</span>
   </div>
   <textarea onChange={handleAbout} className="textarea textarea-bordered h-24" placeholder="About"></textarea>
 
@@ -172,14 +183,14 @@ const SettingsPage = () => {
           
           
 
-          {/* <div className="max-w-md mx-auto p-8">
+          <div className="max-w-md p-8">
       <label className="block text-lg font-medium text-gray-700 mb-4">
         Select your skills (up to 3)
         </label>
         <span>{selectedSkills.map((items) => {
           return <button className="btn no-animation">{items}</button>
         })}</span>
-      <div className="space-y-2">
+      <div className="space-y-2 h-40 overflow-auto">
         {skillsList.map(skill => (
           <div key={skill.value} className="flex items-center">
             <input
@@ -199,30 +210,18 @@ const SettingsPage = () => {
       {warning && (
         <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
       )}
-          </div> */}
+          </div>
 
-            {/* /////////// */}
-            <div className="flex w-full max-w-xs flex-col gap-2">
-      <Select
-        label="Favorite Animal"
-        selectionMode="multiple"
-        placeholder="Select an animal"
-        selectedKeys={values}
-        className="max-w-xs"
-        onChange={handleSelectionChange}
-      >
-        {skillsList.map((animal) => (
-          <SelectItem key={animal.key}>
-            {animal.label}
-          </SelectItem>
-        ))}
-      </Select>
-      <p className="text-small text-default-500">Selected: {Array.from(values).join(", ")}</p>
-    </div>  
+          
+            <div>
+        <span className='text-2xl'>Change Theme</span> 
+      </div>
           
           <button onClick={createEmployerProfile} className="btn w-full rounded-full"> <span className={`${loader} loading-spinner`}></span>Next</button>
 
-        </div>
+          </div>
+          
+         
       </div>
       </div>
 
