@@ -80,7 +80,7 @@ const Dashboard = () => {
   <form method="dialog" className="modal-backdrop">
     <button>close</button>
   </form>
-</dialog>
+      </dialog>
     </div>
   )
 }

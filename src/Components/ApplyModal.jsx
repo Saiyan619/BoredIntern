@@ -3,11 +3,13 @@ import { useState } from 'react'
 import { UserContext } from '../Utilities/Context'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { storage } from '../Utilities/firebaseConfig'
+import Loader from './Loader'
 
 const ApplyModal = ({id}) => {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [cv, setCv] = useState('')
+  const [load, setLoad] = useState(false)
  
   const { User, appliedJobs, loader, setLoader } = UserContext();
  
@@ -17,13 +19,15 @@ const ApplyModal = ({id}) => {
     try {
       if (cv) {
         setLoader('loading')
+        setLoad(true)
         let cvRef = ref(storage, `CV/${timestamp}`);
         let snap = await uploadBytes(cvRef, cv);
         const getCvUrl = await getDownloadURL(ref(storage, snap.ref.fullPath))
         console.log('cv uploaded');
         appliedJobs(fullName, email, getCvUrl, id);
         console.log('job applied to')
-        alert('You have successfully applied... just pray say employer call you')
+        setLoad(false)
+        alert('YOU HAVE SUCCESSFULLY APPLIED💪🦾🤘')
         setLoader('')
         setFullName('')
         setEmail('')
@@ -42,9 +46,9 @@ const ApplyModal = ({id}) => {
           {/* Open the modal using document.getElementById('ID').showModal() method */}
 <button className="mt-4 btn btn-primary" onClick={()=>document.getElementById('my_modal_4').showModal()}>Fill out Job</button>
 <dialog id="my_modal_4" className="modal modal-bottom sm:modal-middle">
-  <div className="modal-box">
- 
-                  <label className="form-control w-full max-w-xs">
+        <div className="modal-box">
+          
+          {load ?  <Loader /> : <div> <label className="form-control w-full max-w-xs">
   <div className="label">
     <span className="label-text">Full Name</span>
                 </div>
@@ -68,13 +72,18 @@ const ApplyModal = ({id}) => {
 
           </label>  
 
-                  <div className="modal-action">
+        
+
+    
+          </div>}
+        
+        <div className="modal-action">
                   <button onClick={applyJob} className="btn"><span className={`${loader} loading-spinner`}></span>Apply</button>
       <form method="dialog">
         {/* if there is a button in form, it will close the modal */}
         <button className="btn">Close</button>
       </form>
-    </div>
+      </div>     
   </div>
 </dialog>
     </div>

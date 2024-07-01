@@ -143,8 +143,6 @@ export const Context = ({ children }) => {
         if (docSnap.exists()) {
           setuserDetailsEmployer(docSnap.data())
         }
-    
-      
       }
     } catch (error) {
       console.log(error)

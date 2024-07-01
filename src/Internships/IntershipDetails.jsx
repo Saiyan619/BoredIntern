@@ -22,11 +22,8 @@ const IntershipDetails = () => {
             <Navigation />
       <div className='p-4 sm:p-6'>
                 <div className='flex flex-col'>
-                    {jobsApplied?.map((item) => {
-                        return <p>{item.fullName}</p>
-                   })}
               <div className='flex items-center gap-5 flex-wrap'>
-                        <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role}</h1> 
+                        <h1 className='sm:text-4xl text-3xl capitalize'>{jobDetails?.role} Intern</h1> 
                   {jobDetails?.duration}
               </div>
 
@@ -51,7 +48,8 @@ const IntershipDetails = () => {
               {jobDetails?.description}
                   </div>
                     </div>
-                
+                    {/* //In this case of displaying "Job posted by "" i'll have to set a displayname input in the signIn page" */}
+                {/* {jobDetails?.userId}     */}
                     <ApplyModal id = {id}/>
               
                 </div>
