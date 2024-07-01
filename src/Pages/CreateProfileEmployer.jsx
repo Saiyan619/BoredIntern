@@ -4,6 +4,7 @@ import { UserContext } from '../Utilities/Context';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../Utilities/firebaseConfig';
 
+
 const CreateProfileEmployer = () => {
   const [FirstName, setFirstName] = useState('')
   const [LastName, setLastName] = useState('')
@@ -185,6 +186,8 @@ const [selectedSkills, setSelectedSkills] = useState([]);
         <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
       )}
           </div>
+
+
           
           <button onClick={createEmployerProfile} className="btn w-full rounded-full"> <span className={`${loader} loading-spinner`}></span>Next</button>
 
