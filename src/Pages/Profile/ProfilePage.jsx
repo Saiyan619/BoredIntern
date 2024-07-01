@@ -13,10 +13,7 @@ const ProfilePage = () => {
       fetchUserDataEmployer()
     }  
   }, [User]);
-  
-  console.log('wtf')
- 
-  // console.log(fetchUserDataIntern())
+   
   return (
     <div>
       <Navigation />

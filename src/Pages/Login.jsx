@@ -8,7 +8,7 @@ const Login = () => {
   const [Email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { User, logIn } = UserContext()
+  const { User, logIn, loader, setLoader} = UserContext()
   console.log(User)
   const navigate = useNavigate();
   function handleEmail(e) {
@@ -23,11 +23,14 @@ const Login = () => {
 
   const logInToNext = async () => {
     try {
+      setLoader('loading')
       await logIn(Email, password)
       console.log('logged in!!')
+      setLoader('')
       navigate('/Home')
     } catch (error) {
       console.log(error)
+      setLoader('')
       console.log('wrong entry')
     }
   }
@@ -67,7 +70,8 @@ const Login = () => {
 </label>
           </div>
 
-            <button onClick={logInToNext} className="btn w-full rounded-full">Next</button>
+            <button onClick={logInToNext} className="btn w-full rounded-full">
+            <span className={`${loader} loading-spinner`}></span>Next</button>
           </div>
           <span className='text-sm mt-5'>Never used BordedIntern? <Link className='text-blue-600 underline' to={'/'}>Sign up Here</Link>.</span>
 
