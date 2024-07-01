@@ -16,6 +16,7 @@ const SettingsPage = () => {
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
   const [imgProfile, setImgProfile] = useState('')
+  const [selectedSkills, setSelectedSkills] = React.useState(new Set([]));
 
   function handleFirstName(e) {
     setFirstName(e.target.value)
@@ -34,15 +35,7 @@ const SettingsPage = () => {
 
   const { createEmployerDetails, allUsers, User, loader, setLoader } = UserContext();
   
-  const skillsList = [
-    { value: 'software-developer', label: 'Software Developer' },
-    { value: 'frontend-developer', label: 'Frontend Developer' },
-    { value: 'backend-developer', label: 'Backend Developer' },
-    { value: 'fullstack-developer', label: 'Fullstack Developer' },
-    { value: 'data-scientist', label: 'Data Scientist' },
-    { value: 'ui-ux-designer', label: 'UI/UX Designer' },
-  ];
-const [selectedSkills, setSelectedSkills] = useState([]);
+  
   const [warning, setWarning] = useState(false);
 
   const handleCheckboxChange = (event) => {
@@ -60,7 +53,6 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       setSelectedSkills(selectedSkills.filter(skill => skill !== value));
     }
   };
-  console.log(selectedSkills)
 
   const createEmployerProfile = async () => {
     try {
@@ -87,6 +79,20 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       setLoader('')
       }
     }
+
+    const [values, setValues] = React.useState(new Set([]));
+
+  const handleSelectionChange = (e) => {
+    // setSelectedSkills(new Set(e.target.value.split(",")));
+    setValues(new Set(e.target.value.split(",")));
+    if (values.length >= 3) {
+      alert('more that 3')
+      setWarning(true);
+      return;
+    }
+      // console.log(selectedSkills)
+    console.log(values);
+    };
    
   
   return (
@@ -166,7 +172,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
           
           
 
-          <div className="max-w-md mx-auto p-8">
+          {/* <div className="max-w-md mx-auto p-8">
       <label className="block text-lg font-medium text-gray-700 mb-4">
         Select your skills (up to 3)
         </label>
@@ -193,7 +199,26 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       {warning && (
         <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
       )}
-          </div>
+          </div> */}
+
+            {/* /////////// */}
+            <div className="flex w-full max-w-xs flex-col gap-2">
+      <Select
+        label="Favorite Animal"
+        selectionMode="multiple"
+        placeholder="Select an animal"
+        selectedKeys={values}
+        className="max-w-xs"
+        onChange={handleSelectionChange}
+      >
+        {skillsList.map((animal) => (
+          <SelectItem key={animal.key}>
+            {animal.label}
+          </SelectItem>
+        ))}
+      </Select>
+      <p className="text-small text-default-500">Selected: {Array.from(values).join(", ")}</p>
+    </div>  
           
           <button onClick={createEmployerProfile} className="btn w-full rounded-full"> <span className={`${loader} loading-spinner`}></span>Next</button>
 
