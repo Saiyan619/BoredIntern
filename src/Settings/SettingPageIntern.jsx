@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState , useEffect} from 'react';
 import { UserContext } from '../Utilities/Context';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from '../Utilities/firebaseConfig';
@@ -7,7 +7,7 @@ import Navigation from '../Pages/Navigation';
 import { skillsList } from '../Components/RoleData';
 import { doc, updateDoc } from 'firebase/firestore';
 
-const SettingsPage = () => {
+const SettingPageIntern = () => {
 
   const [newFirstName, setnewFirstName] = useState('')
   const [newLastName, setnewLastName] = useState('')
@@ -34,6 +34,7 @@ const SettingsPage = () => {
 
   const { createEmployerDetails, allUsers, User, loader, setLoader , userDetailsEmployer} = UserContext();
   
+ 
   
   const [warning, setWarning] = useState(false);
 
@@ -68,30 +69,30 @@ const SettingsPage = () => {
             console.log('pic uploaded')
           }
           
-      const updateRef = doc(db, "Employerusers", User.uid);
+      const updateRef = doc(db, "Internusers", User.uid);
         await updateDoc(updateRef, {
-          profileImg: url === '' ? userDetailsEmployer?.profileImg : url,
-          FirstName: newFirstName === '' ? userDetailsEmployer.FirstName : newFirstName,
-          LastName: newLastName === '' ? userDetailsEmployer.LastName : newLastName,
-          Email: newEmail === '' ? userDetailsEmployer.Email : newEmail,
-          Company: newCompany === '' ? userDetailsEmployer.Company : newCompany,
-          Bio: newBio === '' ? userDetailsEmployer.Bio : newBio,
-          About: newAbout === '' ? userDetailsEmployer.About : newAbout,
-          skillsList: newselectedSkills === '' ? userDetailsEmployer.skillsList : newselectedSkills,
+          profileImg: url === '' ? userDetailsIntern?.profileImg : url,
+          FirstName: newFirstName === '' ? userDetailsIntern.FirstName : newFirstName,
+          LastName: newLastName === '' ? userDetailsIntern.LastName : newLastName,
+          Email: newEmail === '' ? userDetailsIntern.Email : newEmail,
+          Company: newCompany === '' ? userDetailsIntern.Company : newCompany,
+          Bio: newBio === '' ? userDetailsIntern.Bio : newBio,
+          About: newAbout === '' ? userDetailsIntern.About : newAbout,
+          skillsList: newselectedSkills === '' ? userDetailsIntern.skillsList : newselectedSkills,
           
       });
         console.log('updated')
     } catch (error) {
         console.error(error)
     }
-    };9
+    };
   
   
   return (
     <div>
       <Navigation />
       <div className='p-4'> 
-      <h1 className='text-4xl'>Settings for employers</h1>
+      <h1 className='text-4xl'>Settings for interns</h1>
        
         <div className='flex flex-col mt-5'>
         <span className='text-2xl'>Edit/Update your profile</span>
@@ -205,4 +206,4 @@ const SettingsPage = () => {
   )
 }
 
-export default SettingsPage
+export default SettingPageIntern

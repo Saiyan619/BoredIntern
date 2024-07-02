@@ -14,6 +14,7 @@ import SettingsPage from './Settings/SettingsPage';
 import PostJobs from './Pages/PostJobs';
 import IntershipDetails from './Internships/IntershipDetails';
 import Dashboard from './Dashboard/Dashboard';
+import SettingPageIntern from './Settings/SettingPageIntern';
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
             <Route path='/Internships' element={<Internships />} />
             <Route path='/PostJobs' element={<PostJobs />} />
             <Route path='/SettingsPage' element={<SettingsPage />} />
+            <Route path='/SettingPageIntern' element={<SettingPageIntern />} />
             <Route path='/Dashboard' element={<Dashboard />} />
             <Route path='/Internships/InternshipDetails/:id' element={<IntershipDetails />} />
         

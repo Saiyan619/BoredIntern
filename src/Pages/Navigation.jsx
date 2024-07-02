@@ -19,6 +19,17 @@ const Navigation = () => {
     }  
   }, [User]);
 
+  const navToSettings = () => {
+    fetchUserData();
+    if (userDetails?.itOrEm === 'intern') {
+      navigate('/SettingpageIntern')
+      console.log('intern')
+    } else if (userDetails?.itOrEm === 'employer') {
+      navigate('/SettingsPage')
+      console.log('an Employer')
+    }  
+  }
+
   function handleNavigatePostJobs() {
     if (userDetails?.itOrEm === 'intern') {
       alert('cannot post jobs as an intern')
@@ -85,7 +96,7 @@ const Navigation = () => {
             {/* <li><a>Saved Jobs</a></li> */}
            
         <li><a>Saved Jobs</a></li>
-        <Link to={'/SettingsPage'}><li><a>Settings</a></li></Link>
+        <li onClick={navToSettings}><a>Settings</a></li>
         <LogoutModal />
       </ul>
     </div>
