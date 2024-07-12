@@ -17,6 +17,7 @@ const PostJobs = () => {
   const [company, setCompany] = useState('')
   const [location, setLocation] = useState('')
   const [hireTimeLimit, sethireTimeLimit] = React.useState(parseDate("2024-04-04"));
+  const [jobloader, setJobLoader] = useState('loading')
  
   let formatter = useDateFormatter({ dateStyle: "full" });
   let NewDate = (formatter.format(hireTimeLimit.toDate(getLocalTimeZone())));
@@ -35,7 +36,7 @@ const PostJobs = () => {
        setLocation(e.target.value)
     }
 
-    const { User, postJob, loader, setLoader } = UserContext();
+  const { User, postJob, loader, setLoader } = UserContext();
    
   const [selectedSkills, setSelectedSkills] = useState('');
     const jobTypeData = [
@@ -62,10 +63,11 @@ const PostJobs = () => {
 
   const jobPost = async () => {
     try {
-      setLoader('loading')
+      // setLoader('loading')
+      setJobLoader('loading')
       await postJob(selectedSkills, salary, jobType, jobDuration, jobDesc, company, location, NewDate)  
       alert('JOB POSTED')
-      setLoader('')
+      setJobLoader('')
       // setSelectedSkills([])
       setSalary('')
       setjobType('')
@@ -174,7 +176,7 @@ const PostJobs = () => {
 
             <div className="flex flex-row gap-2">
       <div className="w-full flex flex-col gap-y-2">
-        <DatePicker className="max-w-[284px]" label="Date (controlled)" value={hireTimeLimit} onChange={sethireTimeLimit} />
+        <DatePicker className="max-w-[284px]" label="Date" value={hireTimeLimit} onChange={sethireTimeLimit} />
         <p className="text-default-500 text-sm">
           Selected date: {hireTimeLimit ? formatter.format(hireTimeLimit.toDate(getLocalTimeZone())) : "--"}
         </p>
@@ -193,7 +195,8 @@ const PostJobs = () => {
   <textarea onChange={handleJobDesc} className="textarea textarea-bordered h-24" placeholder="Write job description here..."></textarea>
           </label>
           
-          <button onClick={jobPost} className="btn w-full rounded-full mt-5"><span className={`${loader} loading-spinner`}></span>Next</button>
+          {/* <button onClick={jobPost} className="btn w-full rounded-full mt-5"><span className={`${jobloader} loading-spinner`}></span>Next</button> */}
+        <button onClick={jobPost} className="btn w-full rounded-full mt-5"><span className={`${jobloader}-spinner`}></span>Next</button>
 
       </div>
       </div>
