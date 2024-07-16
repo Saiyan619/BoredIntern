@@ -137,7 +137,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
           <div className="label">
             <span className="label-text">Email</span>
             </div>
-            <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
+            <input value={User.email} onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" disabled />
 
             </label>
 

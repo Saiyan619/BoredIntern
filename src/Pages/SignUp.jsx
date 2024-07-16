@@ -20,11 +20,9 @@ const SignUp = () => {
 
   function handleEmail(e) {
     setEmail(e.target.value);
-    console.log(e.target.value)
   }
   function handlePassword(e) {
     setPassword(e.target.value);
-    console.log(e.target.value)
   }
   
   // const addToAllUsers = async () => {

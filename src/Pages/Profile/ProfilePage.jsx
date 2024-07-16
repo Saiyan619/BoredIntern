@@ -59,7 +59,8 @@ const ProfilePage = () => {
         <div>
           <span className='font-bold text-lg'>Social links</span>
               <p>www.arokoyuolaniyi.com</p>
-              <p>{userDetailsIntern?.Email || userDetailsEmployer?.Email}</p>
+              {/* <p>{userDetailsIntern?.Email || userDetailsEmployer?.Email}</p> */}
+              <p>{User?.email}</p>
         </div>
       </div>
 
