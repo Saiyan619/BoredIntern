@@ -70,7 +70,7 @@ const Login = () => {
 </label>
           </div>
 
-            <button onClick={logInToNext} className="btn w-full rounded-full">
+            <button onClick={logInToNext} className="btn w-full max-w-xs rounded-full">
             <span className={`${loader} loading-spinner`}></span>Next</button>
           </div>
           <span className='text-sm mt-5'>Never used BordedIntern? <Link className='text-blue-600 underline' to={'/'}>Sign up Here</Link>.</span>

@@ -93,7 +93,7 @@ const SignUp = () => {
 </label>
           </div>
 
-            <button onClick={signUpToNext} className="btn w-full rounded-full">
+            <button onClick={signUpToNext} className="btn w-full max-w-xs rounded-full">
                <span className={`${loader} loading-spinner`}></span>Next</button>
             
           </div>
