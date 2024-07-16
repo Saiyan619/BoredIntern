@@ -15,6 +15,8 @@ export const Context = ({ children }) => {
   const [jobDetails, setJobDetails] = useState()
   const [jobsApplied, setjobsApplied] = useState()
   const [uploadJobs, setUploadJobs] = useState()
+  // const [searchTerm, setSearchTerm] = useState('')
+  const [searchedJobs, setSearchedJobs] = useState()
   const [loader, setLoader] = useState('')
 
   const navigate = useNavigate();
@@ -279,11 +281,31 @@ export const Context = ({ children }) => {
  
   }
 
+  const searchJob = async (searchTerm) => {
+    // const jobsRef = collection(db, 'jobs');
+    try {
+      console.log(searchTerm)
+      const allJobsRef = collection(db, "jobs");
+      const q = query(allJobsRef, where('role', '==', searchTerm));
+      const querySnapshot = await getDocs(q);
+  
+      const jobsList = [];
+      querySnapshot.forEach((doc) => {
+        jobsList.push(doc.data());
+      });
+      // setJobs(jobsList);
+      setSearchedJobs(jobsList)
+      console.log(searchedJobs)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
   
    
     
   return (
-    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, uploadJobs, loader, setLoader, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs, uploadedJobs}}>
+    <globalContext.Provider value={{User, userDetails, userDetailsIntern, userDetailsEmployer, allJobs, jobDetails, jobsApplied, uploadJobs, loader, searchedJobs, setLoader, signUp, logIn, logOut, createEmployerDetails, createInternDetails, allUsers, fetchUserData, fetchUserDataEmployer, fetchUserDataIntern, postJob, getJobs, getJobDetails, appliedJobs, fetchAppliedJobs, uploadedJobs, searchJob}}>
     {children}
 </globalContext.Provider>
   )
