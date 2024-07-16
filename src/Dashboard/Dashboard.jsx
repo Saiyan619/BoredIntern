@@ -19,7 +19,7 @@ const Dashboard = () => {
           <Navigation />
 
       <div className='mt-2'></div>
-      <span className='text-3xl ml-5'>Tour Posted Jobs</span>
+      <span className='text-3xl ml-5'>Your Posted Jobs</span>
             {uploadJobs?.map((item) => {
               return <div>
 
