@@ -85,7 +85,8 @@ const PostJobs = () => {
       <div>
       <Navigation />
       <div className='p-5'>
-      <div className="flex w-full max-w-xs flex-col gap-2">
+        <span className='text-3xl'>Post A Job</span>
+      <div className="flex w-full max-w-xs flex-col gap-2 mt-5">
       <Select
         label="Select Job Role"
         variant="bordered"

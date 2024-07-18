@@ -6,14 +6,15 @@ import { storage } from '../Utilities/firebaseConfig';
 import { skillsList } from '../Components/RoleData';
 
 const CreateProfileEmployer = () => {
+  const { createEmployerDetails, allUsers, User, loader, setLoader } = UserContext();
   const [FirstName, setFirstName] = useState('')
   const [LastName, setLastName] = useState('')
   const [Company, setCompany] = useState('')
-  const [Email, setEmail] = useState('')
+  const [Email, setEmail] = useState(User.email)
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
   const [imgProfile, setImgProfile] = useState('')
-
+console.log(Email)
   function handleFirstName(e) {
     setFirstName(e.target.value)
     console.log(FirstName)
@@ -29,7 +30,6 @@ const CreateProfileEmployer = () => {
     setAbout(e.target.value)
   }
 
-  const { createEmployerDetails, allUsers, User, loader, setLoader } = UserContext();
   
   // const skillsList = [
   //   { value: 'software-developer', label: 'Software Developer' },
