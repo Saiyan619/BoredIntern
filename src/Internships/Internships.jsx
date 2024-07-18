@@ -22,7 +22,7 @@ const Internships = () => {
       <div className='p-6'>
       <label className="input input-bordered flex items-center gap-2">
           <input type="text" onChange={(e)=>{setSearchValue(e.target.value)}} className="grow" placeholder="Search" />
-          {/* ///////////////////////////BUTTON ICON ///////////////////// */}
+          {/* /////////////////////////// BUTTON ICON ///////////////////// */}
           <svg
            onClick={() => { searchJob(searchValue) }}
     xmlns="http://www.w3.org/2000/svg"
@@ -36,10 +36,10 @@ const Internships = () => {
           </svg>
           {/* ///////////////////////////////////////////// */}
 </label>
-</div>
-      <div className='flex flex-wrap items-center justify-center gap-10 p-4'>
-        
-      {allJobs?.map((item) => {
+      </div>
+      <div>{searchedJobs ? <div className='flex flex-wrap items-center justify-center gap-10 p-4'>
+        {/* searchedJobs */}
+        {searchedJobs?.map((item) => {
         return <div>
            <Link to={`/Internships/InternshipDetails/${item.id}`}>
           <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
@@ -62,8 +62,36 @@ const Internships = () => {
           </div>
           </Link>
         </div>
-      })}
-      </div>
+        })}
+      </div> : 
+         <div className='flex flex-wrap items-center justify-center gap-10 p-4'>
+         {allJobs?.map((item) => {
+           return <div>
+              <Link to={`/Internships/InternshipDetails/${item.id}`}>
+             <div className="card w-80 sm:w-96 bg-base-100 shadow-xl mt-5">
+               <div className="card-body">
+                 <div className='flex justify-between flex-wrap'>
+       <h2 className="card-title">
+                   {item?.role}
+                   </h2>
+    <div className="badge badge-secondary">{item.typeOfWork}</div> 
+    </div>
+                 <p>${item.salary}</p>
+                 <p>{item.duration}</p>
+                 
+       <div className="card-actions justify-end">
+         <div className="badge badge-outline">frontend</div> 
+         <div className="badge badge-outline">fullstack</div>
+       </div>
+     </div>
+     
+             </div>
+             </Link>
+           </div>
+         })}
+         </div>}</div>
+      
+     
       </div>
   )
 }
