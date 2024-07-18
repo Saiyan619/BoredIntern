@@ -35,7 +35,8 @@ const Internships = () => {
       clipRule="evenodd" />
           </svg>
           {/* ///////////////////////////////////////////// */}
-</label>
+        </label>
+        <span className='text-sm'>Note🛑:The search functionality is still in production,Make sure when you search for an Internship the title is word-for-word with what you want</span>
       </div>
       <div>{searchedJobs ? <div className='flex flex-wrap items-center justify-center gap-10 p-4'>
         {/* searchedJobs */}
