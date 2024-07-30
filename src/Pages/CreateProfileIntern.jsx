@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { UserContext } from '../Utilities/Context'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../Utilities/firebaseConfig';
+import { skillsList } from '../Components/RoleData';
 
 const CreateProfileIntern = () => {
   const [FirstName, setFirstName] = useState('');
@@ -36,14 +37,14 @@ const CreateProfileIntern = () => {
    
   // }
 
-  const skillsList = [
-    { value: 'software-developer', label: 'Software Developer' },
-    { value: 'frontend-developer', label: 'Frontend Developer' },
-    { value: 'backend-developer', label: 'Backend Developer' },
-    { value: 'fullstack-developer', label: 'Fullstack Developer' },
-    { value: 'data-scientist', label: 'Data Scientist' },
-    { value: 'ui-ux-designer', label: 'UI/UX Designer' },
-  ];
+  // const skillsList = [
+  //   { value: 'software-developer', label: 'Software Developer' },
+  //   { value: 'frontend-developer', label: 'Frontend Developer' },
+  //   { value: 'backend-developer', label: 'Backend Developer' },
+  //   { value: 'fullstack-developer', label: 'Fullstack Developer' },
+  //   { value: 'data-scientist', label: 'Data Scientist' },
+  //   { value: 'ui-ux-designer', label: 'UI/UX Designer' },
+  // ];
 const [selectedSkills, setSelectedSkills] = useState([]);
   const [warning, setWarning] = useState(false);
 
@@ -151,9 +152,9 @@ const [selectedSkills, setSelectedSkills] = useState([]);
           return <button className="btn no-animation">{items}</button>
         })}</span>
             
-      <div className="space-y-2">
-        {skillsList.map(skill => (
-          <div key={skill.value} className="flex items-center">
+      <div className="space-y-2 h-40 overflow-auto">
+      {skillsList.map(skill => (
+          <div key={skill.value} className="flex items-center ">
             <input
               type="checkbox"
               id={skill.value}
@@ -169,7 +170,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
         ))}
       </div>
       {warning && (
-        <p className="text-red-500 mt-2">You can select up to 3 skills.</p>
+        <p className="text-red-500 mt-2">You cannot select more than 3 skills.</p>
       )}
           </div>
           

@@ -48,7 +48,7 @@ const Login = () => {
           <div className='flex justify-around items-center flex-wrap'>
       
       <div className='p-4'>
-        <span className='text-2xl sm:text-4xl'>Welcome back Mr Niyi</span>
+        <span className='text-2xl sm:text-4xl'>Welcome back Intern</span>
         <div>
           <div>
           <label className="form-control w-full max-w-xs">
