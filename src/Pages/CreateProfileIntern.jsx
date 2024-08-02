@@ -6,6 +6,8 @@ import { storage } from '../Utilities/firebaseConfig';
 import { skillsList } from '../Components/RoleData';
 
 const CreateProfileIntern = () => {
+  const { createInternDetails, User , allUsers, loader, setLoader } = UserContext();
+
   const [FirstName, setFirstName] = useState('');
   const [LastName, setLastName] = useState('');
   const [imgProfile, setImgProfile] = useState('');
@@ -13,7 +15,6 @@ const CreateProfileIntern = () => {
   const [Bio, setBio] = useState('')
   const [About, setAbout] = useState('')
 
-  const { createInternDetails, allUsers, loader, setLoader } = UserContext();
   
   function handleFirstName(e) {
     setFirstName(e.target.value)
@@ -37,14 +38,6 @@ const CreateProfileIntern = () => {
    
   // }
 
-  // const skillsList = [
-  //   { value: 'software-developer', label: 'Software Developer' },
-  //   { value: 'frontend-developer', label: 'Frontend Developer' },
-  //   { value: 'backend-developer', label: 'Backend Developer' },
-  //   { value: 'fullstack-developer', label: 'Fullstack Developer' },
-  //   { value: 'data-scientist', label: 'Data Scientist' },
-  //   { value: 'ui-ux-designer', label: 'UI/UX Designer' },
-  // ];
 const [selectedSkills, setSelectedSkills] = useState([]);
   const [warning, setWarning] = useState(false);
 
@@ -64,19 +57,34 @@ const [selectedSkills, setSelectedSkills] = useState([]);
     }
   };
   console.log(selectedSkills)
+  console.log(imgProfile)
 
   const internDetails = async () => {
     try {
-      setLoader('loading')
       const timestamp = new Date().getTime();
-      if (imgProfile) {
-      let imageRef = ref(storage, `profilePicture/${timestamp}`);
-      let snap = await uploadBytes(imageRef, imgProfile);
-      const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-        console.log('pic uploaded')
-        await createInternDetails(FirstName, LastName, getUrl, Email, selectedSkills, Bio, About)
-        allUsers()
+      if (FirstName && LastName !== '' && selectedSkills.length > 0 && imgProfile)  {
+        setLoader('loading')
+        console.log('name test passed')
+        console.log('skill test passed')
+        console.log('image test passed')
+        let imageRef = ref(storage, `profilePicture/${timestamp}`);
+          let snap = await uploadBytes(imageRef, imgProfile);
+          const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+            console.log('pic uploaded')
+        
+         
+          await createInternDetails(FirstName, LastName, getUrl, Email, selectedSkills, Bio, About);
+         
+          
+          allUsers()
+          
+        
         setLoader('')
+    
+      }
+      else {
+        alert('fill in alteast your first and lastname and fill in your skills ')
+
       }
       
     } catch (error) {
@@ -84,6 +92,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
       setLoader('')
     }
   }
+  
 
   return (
     <div>
@@ -125,7 +134,7 @@ const [selectedSkills, setSelectedSkills] = useState([]);
   <div className="label">
     <span className="label-text">Email</span>
   </div>
-  <input onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" />
+  <input value={User?.email} onChange={handleEmail} type="text" placeholder="email" className="input input-bordered w-full max-w-xs" disabled/>
   </label>
             
             <label className="form-control">

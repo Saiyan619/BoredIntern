@@ -9,7 +9,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 
 const SettingPageIntern = () => {
 
-  const [newFirstName, setnewFirstName] = useState('')
+  const [newFirstName, setnewFirstName] = useState("")
   const [newLastName, setnewLastName] = useState('')
   const [newCompany, setnewCompany] = useState('')
   const [newEmail, setnewEmail] = useState('')
@@ -32,7 +32,7 @@ const SettingPageIntern = () => {
     setnewAbout(e.target.value)
   }
 
-  const { createEmployerDetails, allUsers, User, loader, setLoader , userDetailsEmployer} = UserContext();
+  const { createEmployerDetails, allUsers, User, loader, setLoader , userDetailsEmployer, userDetailsIntern} = UserContext();
   
  
   
@@ -68,26 +68,27 @@ const SettingPageIntern = () => {
             url = getUrl
             console.log('pic uploaded')
           }
-          
+          console.log(newFirstName)
       const updateRef = doc(db, "Internusers", User.uid);
         await updateDoc(updateRef, {
-          profileImg: url === '' ? userDetailsIntern?.profileImg : url,
-          FirstName: newFirstName === '' ? userDetailsIntern.FirstName : newFirstName,
-          LastName: newLastName === '' ? userDetailsIntern.LastName : newLastName,
-          Email: newEmail === '' ? userDetailsIntern.Email : newEmail,
-          Company: newCompany === '' ? userDetailsIntern.Company : newCompany,
-          Bio: newBio === '' ? userDetailsIntern.Bio : newBio,
-          About: newAbout === '' ? userDetailsIntern.About : newAbout,
-          skillsList: newselectedSkills === '' ? userDetailsIntern.skillsList : newselectedSkills,
-          
+          ProfilePicture: url ? url : userDetailsIntern?.ProfilePicture ,
+          FirstName: newFirstName === "" ? userDetailsIntern.FirstName : newFirstName,
+          LastName: newLastName === '' ? userDetailsIntern?.LastName : newLastName,
+          Email: newEmail === '' ? userDetailsIntern?.Email : newEmail,
+          Bio: newBio === '' ? userDetailsIntern?.Bio : newBio,
+          About: newAbout === '' ? userDetailsIntern?.About : newAbout,
+          skillsList: newselectedSkills.length > 0 ? newselectedSkills : userDetailsIntern?.skillsList,
       });
         console.log('updated')
     } catch (error) {
         console.error(error)
     }
-    };
+  };
+  console.log(newselectedSkills)
   
-  
+  console.log(newFirstName)
+  console.log(userDetailsIntern?.ProfilePicture )
+
   return (
     <div>
       <Navigation />

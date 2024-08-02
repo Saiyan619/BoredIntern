@@ -106,7 +106,7 @@ export const Context = ({ children }) => {
         LastName,
         ProfilePicture: profileImg || '',
         Email: email || '',
-        skillsList,
+        skillsList: skillsList || [],
         Bio: bio || '',
         About: about || '',
         Intern: 'yes'

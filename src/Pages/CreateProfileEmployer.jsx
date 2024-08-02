@@ -61,24 +61,30 @@ const [selectedSkills, setSelectedSkills] = useState([]);
 
   const createEmployerProfile = async () => {
     try {
-      
+      if (FirstName && LastName !== '' && selectedSkills.length > 0 && imgProfile) {
+
         const timestamp = new Date().getTime();
-      if (imgProfile) {
         setLoader('loading')
-          let imageRef = ref(storage, `profilePicture/${timestamp}`);
-          let snap = await uploadBytes(imageRef, imgProfile);
-          const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
-          console.log('pic uploaded')
-          if (FirstName && LastName && Company !== '') {
-            await createEmployerDetails(getUrl, FirstName, LastName, Email, Company, Bio, About, selectedSkills)
-            allUsers();
-            setLoader('loading')
-          } else {
-            alert('fill in the spaces')
-            setLoader('')
-          }
-        
+        console.log('name test passed')
+        console.log('skill test passed')
+        console.log('image test passed')
+        let imageRef = ref(storage, `profilePicture/${timestamp}`);
+        let snap = await uploadBytes(imageRef, imgProfile);
+        const getUrl = await getDownloadURL(ref(storage, snap.ref.fullPath));
+        console.log('pic uploaded')
+        // if (FirstName && LastName && Company !== '') {
+          await createEmployerDetails(getUrl, FirstName, LastName, Email, Company, Bio, About, selectedSkills)
+        //   allUsers();
+        //   setLoader('loading')
+        // } else {
+        //   alert('Fill in the names, image and skills atleast')
+        //   setLoader('')
+        // }
+      } else {
+          alert('Fill in the names, image and skills atleast')
+          setLoader('')
         }
+        
       } catch (error) {
       console.log(error)
       setLoader('')

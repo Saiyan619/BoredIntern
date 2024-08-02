@@ -70,14 +70,14 @@ const SettingsPage = () => {
           
       const updateRef = doc(db, "Employerusers", User.uid);
         await updateDoc(updateRef, {
-          profileImg: url === '' ? userDetailsEmployer?.profileImg : url,
+          profileImg: url ? url : userDetailsEmployer?.profileImg,
           FirstName: newFirstName === '' ? userDetailsEmployer.FirstName : newFirstName,
           LastName: newLastName === '' ? userDetailsEmployer.LastName : newLastName,
           Email: newEmail === '' ? userDetailsEmployer.Email : newEmail,
           Company: newCompany === '' ? userDetailsEmployer.Company : newCompany,
           Bio: newBio === '' ? userDetailsEmployer.Bio : newBio,
           About: newAbout === '' ? userDetailsEmployer.About : newAbout,
-          skillsList: newselectedSkills === '' ? userDetailsEmployer.skillsList : newselectedSkills,
+          skillsList: newselectedSkills.length > 0 ? newselectedSkills : userDetailsEmployer.skillsList,
           
       });
         console.log('updated')

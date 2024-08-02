@@ -13,7 +13,8 @@ const ProfilePage = () => {
       fetchUserDataEmployer()
     }  
   }, [User]);
-   
+  console.log(userDetailsIntern?.ProfilePicture)
+ console.log(userDetailsEmployer)
   return (
     <div>
       <Navigation />
@@ -22,9 +23,18 @@ const ProfilePage = () => {
       <div className='flex flex-col border rounded w-full lg:w-3/5  bg-blue-100 p-4'>
         <div className="avatar">
   <div className="w-24 rounded-full">
-    <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg} />
+    {/* <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg === '' ? './vite.svg' : userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg} />
+                <img src={userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg === '' ? './vite.svg' : userDetailsIntern?.ProfilePicture || userDetailsEmployer?.profileImg} /> */}
+                {userDetailsIntern?.ProfilePicture ?
+                  <img src={userDetailsIntern?.ProfilePicture} />
+                  : userDetailsEmployer?.profileImg ?
+                    <img src={userDetailsEmployer?.profileImg} />
+                : <img src="./icons8-user-24 (1).png"/> }
+    {/* <img className='w-24' src='./vite.svg' /> */}
     {/* <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" /> */}
-  </div>
+              </div>
+             
+
         </div>
         <span className='text-3xl'>{userDetailsIntern?.FirstName || userDetailsEmployer?.FirstName} {userDetailsIntern?.LastName || userDetailsEmployer?.LastName}</span>
           <p className='text-xl'>{userDetailsIntern?.Bio || userDetailsEmployer?.Bio}</p>
