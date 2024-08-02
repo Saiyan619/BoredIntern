@@ -103,7 +103,8 @@ const SettingsPage = () => {
         <span className="label-text">New First Name</span>
   </div>
   <input onChange={handleFirstName} type="text" placeholder="First Name" className="input input-bordered w-full max-w-xs" />
-  <div className="label">
+              <div className="label">
+                
   </div>
       </label>
 
