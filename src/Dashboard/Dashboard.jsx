@@ -28,7 +28,6 @@ const Dashboard = () => {
                   <div className="card-body">
                   <Link to={`/Internships/InternshipDetails/${item.id}`}>
                 <div className='flex justify-between flex-wrap'>
-                  {item.id}
 
     <h2 className="card-title">
                 {item?.role}
